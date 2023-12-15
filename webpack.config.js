@@ -12,7 +12,7 @@ module.exports = (env) => {
 
     return {
         mode: isDevMode ? "development" : "production",
-        devtool: isDevMode ? "source-map" : "inline-source-map",
+        devtool: isDevMode ? "inline-source-map" : "source-map",
         resolve: {
             extensions: [".tsx",".ts", ".jsx", ".js"]
         },
