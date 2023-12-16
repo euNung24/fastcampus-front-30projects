@@ -4,6 +4,16 @@
     box-sizing: border-box;
 }
 
+html {
+    background: #fff;
+    transition: filter 0.5s;
+}
+
+html[theme="dark-mode"] {
+    filter: invert(100%) hue-rotate(180deg);
+}
+
+
 .container {
     padding: 20px;
 }
