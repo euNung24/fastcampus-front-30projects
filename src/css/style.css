@@ -29,7 +29,7 @@
 }
 
 
-.darkModeBox label {
+.darkModeBox .toggle {
     display: inline-block;
     width: 60px;
     height: 30px;
@@ -37,9 +37,10 @@
     text-indent: -9999px;
     border-radius: 20px;
     position: relative;
+    transition: background 0.2s;
 }
 
-.darkModeBox label::after {
+.darkModeBox .toggle::after {
     content: "";
     display: block;
     position: absolute;
@@ -50,13 +51,15 @@
     background: #fff;
     transform: translateY(-50%);
     border-radius: 50%;
-    transition: transform 0.5s,
-    background 0.2s;
+    transition: transform 0.5s;
 }
 
-.darkModeBox input:checked + label::after {
-    transform: translateX(28px) translateY(-50%);
+.darkModeBox input:checked + .toggle {
     background: #333;
+}
+
+.darkModeBox input:checked + .toggle::after {
+    transform: translateX(28px) translateY(-50%);
 }
 
 .keyboardWrapper {
