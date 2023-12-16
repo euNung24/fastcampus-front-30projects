@@ -1,14 +1,129 @@
-p {
-
-
-    background-color: red;
-
-
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-div {
-    background-color: blue;
+.container {
+    padding: 20px;
+}
+
+.settingBox {
+    display: flex;
+    align-items: center;
+}
+
+.settingBox > * {
+    margin-right: 10px;
+}
+
+.darkModeBox input {
+    display: none;
+}
+
+.settingBox select {
+    width: 200px;
+    height: 34px;
+    padding: 2px 5px;
+    font-size: 0.9rem;
+}
 
 
+.darkModeBox label {
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+    background: #bdbdbd;
+    text-indent: -9999px;
+    border-radius: 20px;
+    position: relative;
+}
 
+.darkModeBox label::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 4px;
+    width: 24px;
+    height: 24px;
+    background: #fff;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    transition: transform 0.5s,
+    background 0.2s;
+}
+
+.darkModeBox input:checked + label::after {
+    transform: translateX(28px) translateY(-50%);
+    background: #333;
+}
+
+.keyboardWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.keyboardWrapper input {
+    width: 600px;
+    padding: 5px;
+    margin-bottom: 30px;
+    border-color: transparent transparent #333 transparent;
+}
+
+.keyboardBox {
+    padding: 0.2rem;
+    width: 924px;
+    background: #aaa;
+    border-radius: 0.25rem;
+    box-shadow: -0.5rem 0.5rem 0.5rem rgba(0, 0, 0, 0.5);
+}
+
+.keyboardBox .row {
+    display: flex;
+}
+
+.keyBox {
+    display: flex;
+    justify-content: space-between;
+    margin: 0.25rem;
+    padding: 0.25rem;
+    min-width: 3.5rem;
+    height: 3.5rem;
+    background: #fff;
+    border-radius: 0.2rem;
+    box-shadow: -0.25rem 0.25rem 0.1rem rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.2s;
+    cursor: pointer;
+}
+
+.keyBox:hover {
+    box-shadow: -0.1rem 0.1rem 0.1rem rgba(0, 0, 0, 0.7);
+}
+
+.keyBox.fnKey {
+    flex: 1;
+}
+
+.fnKey.right {
+    justify-content: flex-end;
+}
+
+.keyBox > kbd:first-child {
+    align-self: flex-end;
+}
+
+.keyBox.specialKey {
+    flex-direction: column;
+}
+
+.keyBox.specialKey > kbd {
+    align-self: center;
+}
+
+.keyBox.doubleKey > div {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: space-between;
 }

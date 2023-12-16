@@ -1,14 +1,294 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Virtual Keyboard</title>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+        name="viewport">
+  <meta content="ie=edge" http-equiv="X-UA-Compatible">
+  <title>Virtual Keyboard</title>
 </head>
 <body>
-    <div>Hello, world!</div>
-    <p>Nice to meet you!</p>
+<section class="container">
+  <h1>Virtual Keyboard</h1>
+  <div>
+    <div class="settingBox">
+      <div class="darkModeBox">
+        <input id="darkMode" type="checkbox">
+        <label for="darkMode">Dark Mode</label>
+      </div>
+      <div class="FontBox">
+        <label for="fontSize">Font: </label>
+        <select id="fontSize" name="fontSize">
+          <option value="16px">16px</option>
+          <option value="20px">20px</option>
+          <option value="24px">24px</option>
+          <option value="28px">28px</option>
+        </select>
+      </div>
+    </div>
+    <section class="keyboardWrapper">
+      <input type="text">
+      <div class="keyboardBox">
+        <div class="row">
+          <div class="keyBox specialKey">
+            <kbd>~</kbd>
+            <kbd>₩</kbd>
+          </div>
+          <div class="keyBox specialKey">
+            <kbd>!</kbd>
+            <kbd>1</kbd>
+          </div>
+          <div class="keyBox specialKey">
+            <kbd>@</kbd>
+            <kbd>2</kbd>
+          </div>
+          <div class="keyBox specialKey">
+            <kbd>#</kbd>
+            <kbd>3</kbd>
+          </div>
+          <div class="keyBox specialKey">
+            <kbd>$</kbd>
+            <kbd>4</kbd>
+          </div>
+          <div class="keyBox specialKey">
+            <kbd>%</kbd>
+            <kbd>5</kbd>
+          </div>
+          <div class="keyBox specialKey">
+            <kbd>^</kbd>
+            <kbd>6</kbd>
+          </div>
+          <div class="keyBox specialKey">
+            <kbd>&</kbd>
+            <kbd>7</kbd>
+          </div>
+          <div class="keyBox specialKey">
+            <kbd>*</kbd>
+            <kbd>8</kbd>
+          </div>
+          <div class="keyBox specialKey">
+            <kbd>(</kbd>
+            <kbd>9</kbd>
+          </div>
+          <div class="keyBox specialKey">
+            <kbd>)</kbd>
+            <kbd>0</kbd>
+          </div>
+          <div class="keyBox specialKey">
+            <kbd>+</kbd>
+            <kbd>=</kbd>
+          </div>
+          <div class="keyBox fnKey right">
+            <kbd>Backspace</kbd>
+          </div>
+        </div>
+        <div class="row">
+          <div class="keyBox fnKey">
+            <kbd>tab</kbd>
+          </div>
+          <div class="keyBox doubleKey">
+            <div>
+              <kbd>ㅂ</kbd>
+              <kbd>ㅃ</kbd>
+            </div>
+            <kbd>Q</kbd>
+          </div>
+          <div class="keyBox doubleKey">
+            <div>
+              <kbd>ㅈ</kbd>
+              <kbd>ㅉ</kbd>
+            </div>
+            <kbd>W</kbd>
+          </div>
+          <div class="keyBox doubleKey">
+            <div>
+              <kbd>ㄷ</kbd>
+              <kbd>ㄸ</kbd>
+            </div>
+            <kbd>E</kbd>
+          </div>
+          <div class="keyBox doubleKey">
+            <div>
+              <kbd>ㄱ</kbd>
+              <kbd>ㄲ</kbd>
+            </div>
+            <kbd>R</kbd>
+          </div>
+          <div class="keyBox doubleKey">
+            <div>
+              <kbd>ㅅ</kbd>
+              <kbd>ㅆ</kbd>
+            </div>
+            <kbd>T</kbd>
+          </div>
+          <div class="keyBox">
+            <kbd>ㅛ</kbd>
+            <kbd>Y</kbd>
+          </div>
+          <div class="keyBox">
+            <kbd>ㅕ</kbd>
+            <kbd>U</kbd>
+          </div>
+          <div class="keyBox">
+            <kbd>ㅑ</kbd>
+            <kbd>U</kbd>
+          </div>
+          <div class="keyBox doubleKey">
+            <div>
+              <kbd>ㅐ</kbd>
+              <kbd>ㅒ</kbd>
+            </div>
+            <kbd>O</kbd>
+          </div>
+          <div class="keyBox doubleKey">
+            <div>
+              <kbd>ㅔ</kbd>
+              <kbd>ㅖ</kbd>
+            </div>
+            <kbd>P</kbd>
+          </div>
+          <div class="keyBox specialKey">
+            <kbd>{</kbd>
+            <kbd>[</kbd>
+          </div>
+          <div class="keyBox specialKey">
+            <kbd>}</kbd>
+            <kbd>]</kbd>
+          </div>
+          <div class="keyBox specialKey">
+            <kbd>|</kbd>
+            <kbd>\</kbd>
+          </div>
+        </div>
+        <div class="row">
+          <div class="keyBox fnKey">
+            <kbd>한/A</kbd>
+          </div>
+          <div class="keyBox">
+            <kbd>ㅁ</kbd>
+            <kbd>A</kbd>
+          </div>
+          <div class="keyBox">
+            <kbd>ㄴ</kbd>
+            <kbd>S</kbd>
+          </div>
+          <div class="keyBox">
+            <kbd>ㅇ</kbd>
+            <kbd>D</kbd>
+          </div>
+          <div class="keyBox">
+            <kbd>ㄹ</kbd>
+            <kbd>F</kbd>
+          </div>
+          <div class="keyBox">
+            <kbd>ㅎ</kbd>
+            <kbd>G</kbd>
+          </div>
+          <div class="keyBox">
+            <kbd>ㅗ</kbd>
+            <kbd>H</kbd>
+          </div>
+          <div class="keyBox">
+            <kbd>ㅓ</kbd>
+            <kbd>J</kbd>
+          </div>
+          <div class="keyBox">
+            <kbd>ㅏ</kbd>
+            <kbd>K</kbd>
+          </div>
+          <div class="keyBox">
+            <kbd>ㅣ</kbd>
+            <kbd>L</kbd>
+          </div>
+          <div class="keyBox specialKey">
+            <kbd>:</kbd>
+            <kbd>;</kbd>
+          </div>
+          <div class="keyBox specialKey">
+            <kbd>"</kbd>
+            <kbd>'</kbd>
+          </div>
+          <div class="keyBox fnKey right">
+            <kbd>Enter</kbd>
+          </div>
+        </div>
+        <div class="row">
+          <div class="keyBox fnKey">
+            <kbd>shift</kbd>
+          </div>
+          <div class="keyBox">
+            <kbd>ㅋ</kbd>
+            <kbd>Z</kbd>
+          </div>
+          <div class="keyBox">
+            <kbd>ㅌ</kbd>
+            <kbd>X</kbd>
+          </div>
+          <div class="keyBox">
+            <kbd>ㅊ</kbd>
+            <kbd>C</kbd>
+          </div>
+          <div class="keyBox">
+            <kbd>ㅍ</kbd>
+            <kbd>V</kbd>
+          </div>
+          <div class="keyBox">
+            <kbd>ㅠ</kbd>
+            <kbd>B</kbd>
+          </div>
+          <div class="keyBox">
+            <kbd>ㅜ</kbd>
+            <kbd>N</kbd>
+          </div>
+          <div class="keyBox">
+            <kbd>ㅡ</kbd>
+            <kbd>M</kbd>
+          </div>
+          <div class="keyBox">
+            <kbd>&lt;</kbd>
+            <kbd>,</kbd>
+          </div>
+          <div class="keyBox">
+            <kbd>&gt;</kbd>
+            <kbd>.</kbd>
+          </div>
+          <div class="keyBox">
+            <kbd>?</kbd>
+            <kbd>/</kbd>
+          </div>
+          <div class="keyBox fnKey right">
+            <kbd>shift</kbd>
+          </div>
+        </div>
+        <div class="row">
+          <div class="keyBox">
+            <kbd>fn</kbd>
+          </div>
+          <div class="keyBox">
+            <kbd>ctrl</kbd>
+          </div>
+          <div class="keyBox">
+            <kbd>opt</kbd>
+          </div>
+          <div class="keyBox">
+            <kbd>cmd</kbd>
+          </div>
+          <div class="keyBox fnKey" style="justify-content: center">
+            <kbd>spacebar</kbd>
+          </div>
+          <div class="keyBox">
+            <kbd>cmd</kbd>
+          </div>
+          <div class="keyBox">
+            <kbd>opt</kbd>
+          </div>
+          <div class="keyBox">
+            <kbd>ctrl</kbd>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</section>
 </body>
 </html>
