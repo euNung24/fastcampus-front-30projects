@@ -13,6 +13,9 @@ html[theme="dark-mode"] {
     filter: invert(100%) hue-rotate(180deg);
 }
 
+input, kbd {
+    font-family: inherit;
+}
 
 .container {
     padding: 20px;
@@ -83,6 +86,7 @@ html[theme="dark-mode"] {
     padding: 5px;
     margin-bottom: 30px;
     border-color: transparent transparent #333 transparent;
+    font-size: 1.3rem;
 }
 
 .keyboardBox {

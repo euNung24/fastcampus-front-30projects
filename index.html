@@ -6,6 +6,11 @@
         name="viewport">
   <meta content="ie=edge" http-equiv="X-UA-Compatible">
   <title>Virtual Keyboard</title>
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Press+Start+2P&display=swap"
+        rel="stylesheet">
 </head>
 <body>
 <section class="container">
@@ -19,17 +24,18 @@
         </label>
       </div>
       <div class="FontBox">
-        <label for="fontSize">Font: </label>
-        <select id="fontSize" name="fontSize">
-          <option value="16px">16px</option>
-          <option value="20px">20px</option>
-          <option value="24px">24px</option>
-          <option value="28px">28px</option>
+        <label for="font">Font: </label>
+        <select id="font" name="font">
+          <option disabled selected value="">Choose Font</option>
+          <option value="monospace">default</option>
+          <option value="Comic Sans Ms, Comic Sans, cursive">Font1</option>
+          <option value="Dancing Script, sans-serif">Font2</option>
+          <option value="Pacifico, fantasy">Font3</option>
         </select>
       </div>
     </div>
     <section class="keyboardWrapper">
-      <input type="text">
+      <input name="value" type="text" value="Hello, World">
       <div class="keyboardBox">
         <div class="row">
           <div class="keyBox specialKey">
