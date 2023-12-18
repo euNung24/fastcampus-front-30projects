@@ -8,6 +8,8 @@ export default class Keyboard {
   koreanRegExp = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
   type = "english";
   isShiftPress = false;
+  keyDown = false;
+  mouseDown = false;
 
   constructor() {
     this.setElements();
@@ -45,6 +47,9 @@ export default class Keyboard {
   }
 
   onKeyDown(e: KeyboardEvent) {
+    if (this.mouseDown) return;
+    this.keyDown = true;
+
     const value = e.key;
     this.$keyboardEl
       .querySelector(`[data-key="${value}"]`)
@@ -54,6 +59,9 @@ export default class Keyboard {
   }
 
   onKeyUp(e: KeyboardEvent) {
+    if (this.mouseDown) return;
+    this.keyDown = false;
+
     this.$keyboardEl
       .querySelector(`[data-key="${e.key}"]`)
       ?.closest(".keyBox")
@@ -66,6 +74,9 @@ export default class Keyboard {
   }
 
   onMouseDown(e: Event) {
+    if (this.keyDown) return;
+    this.mouseDown = true;
+
     const el = e.target as HTMLElement;
     if (el.dataset.key === "CapsLock") {
       this.type = this.type === "english" ? "korean" : "english";
@@ -97,6 +108,9 @@ export default class Keyboard {
   }
 
   onMouseUp(e: Event) {
+    if (this.keyDown) return;
+    this.mouseDown = false;
+
     const el = e.target as Element;
     el.closest(".keyBox")?.classList.remove("active");
   }
