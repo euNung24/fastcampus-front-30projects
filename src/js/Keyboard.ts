@@ -6,7 +6,7 @@ export default class Keyboard {
   $inputEl: HTMLInputElement;
   $errorEl: HTMLParagraphElement;
   koreanRegExp = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
-  type = "english";
+  language = "english";
   isShiftPress = false;
   keyDown = false;
   mouseDown = false;
@@ -30,7 +30,6 @@ export default class Keyboard {
     this.$fontSelectEl.addEventListener("change", this.onChangeFont);
     document.addEventListener("keydown", this.onKeyDown.bind(this));
     document.addEventListener("keyup", this.onKeyUp.bind(this));
-    this.$inputEl.addEventListener("input", this.onChangeInput.bind(this));
     this.$keyboardEl.addEventListener("mousedown", this.onMouseDown.bind(this));
     document.addEventListener("mouseup", this.onMouseUp.bind(this));
   }
@@ -46,72 +45,108 @@ export default class Keyboard {
     document.body.style.fontFamily = (e.target as HTMLSelectElement).value;
   }
 
+  changeLanguage() {
+    this.language = this.language === "english" ? "korean" : "english";
+    this.$keyboardEl.setAttribute("data-type", this.language);
+  }
+
+  changeType() {
+    this.isShiftPress = !this.isShiftPress;
+    this.$keyboardEl.setAttribute(
+      "data-type",
+      `${this.language}${this.isShiftPress ? "-shift" : ""}`,
+    );
+  }
+
   onKeyDown(e: KeyboardEvent) {
     if (this.mouseDown) return;
     this.keyDown = true;
 
-    const value = e.key;
-    this.$keyboardEl
-      .querySelector(`[data-key="${value}"]`)
-      ?.closest(".keyBox")
-      .classList.add("active");
-    this.$errorEl.classList.toggle("error", this.koreanRegExp.test(value));
+    let keyEl: HTMLElement;
+    if (e.key === '"') {
+      keyEl = this.$keyboardEl.querySelector(`[data-key='"']`);
+    } else if (e.key === "\\") {
+      keyEl = this.$keyboardEl.querySelector(`[data-key="\"]`);
+    } else {
+      keyEl =
+        this.$keyboardEl.querySelector(`[data-key="${e.key}"]`) ||
+        this.$keyboardEl.querySelector(`[data-key="${e.code}"]`);
+    }
+
+    keyEl?.closest(".keyBox").classList.add("active");
+
+    if (e.key.includes("Shift")) {
+      this.changeType();
+    } else if (e.key === "CapsLock") {
+      this.changeLanguage();
+    } else if (e.key.includes("Backspace")) {
+      this.$inputEl.value = this.$inputEl.value.slice(0, -1);
+    } else if (e.key.includes("Space")) {
+      this.$inputEl.value += " ";
+    } else {
+      keyEl &&
+        (this.$inputEl.value += keyEl.dataset.key.replace(
+          this.koreanRegExp,
+          "",
+        ));
+    }
+
+    this.$errorEl.classList.toggle(
+      "error",
+      this.koreanRegExp.test(e.key) || Boolean(!keyEl),
+    );
   }
 
   onKeyUp(e: KeyboardEvent) {
     if (this.mouseDown) return;
     this.keyDown = false;
 
-    this.$keyboardEl
-      .querySelector(`[data-key="${e.key}"]`)
-      ?.closest(".keyBox")
-      .classList.remove("active");
-  }
+    const keyEl =
+      this.$keyboardEl.querySelector(`[data-key="${e.key}"]`) ||
+      this.$keyboardEl.querySelector(`[data-key="${e.code}"]`);
 
-  onChangeInput(e: Event) {
-    const el = e.target as HTMLInputElement;
-    el.value = el.value.replace(this.koreanRegExp, "");
+    keyEl?.closest(".keyBox").classList.remove("active");
   }
 
   onMouseDown(e: Event) {
     if (this.keyDown) return;
     this.mouseDown = true;
 
-    const el = e.target as HTMLElement;
-    if (el.dataset.key === "CapsLock") {
-      this.type = this.type === "english" ? "korean" : "english";
-      this.$keyboardEl.setAttribute("data-type", this.type);
+    const target = e.target as HTMLElement;
+    if (target.dataset.key === "CapsLock") {
+      this.changeLanguage();
       return;
     }
-    if (el.dataset.key === "shift") {
-      this.isShiftPress = !this.isShiftPress;
-      this.$keyboardEl.setAttribute(
-        "data-type",
-        `${this.type}${this.isShiftPress ? "-shift" : ""}`,
-      );
+    if (target.dataset.key?.includes("Shift")) {
+      this.changeType();
       return;
     }
-    if (el.dataset.key?.includes("Back")) {
+    if (target.dataset.key?.includes("Back")) {
       this.$inputEl.value = this.$inputEl.value.slice(0, -1);
       return;
     }
 
-    const keyBoxEl = el.closest(".keyBox");
+    const keyBoxEl = target.closest(".keyBox");
     keyBoxEl?.classList.add("active");
     const type = this.$keyboardEl.dataset.type;
     const keyEl = keyBoxEl?.querySelector(`[data-type=${type}]`) as HTMLElement;
     if (keyEl) {
-      this.$inputEl.value += keyEl.dataset.key;
+      this.$inputEl.value += keyEl.dataset.key.replace(this.koreanRegExp, "");
     } else if (keyBoxEl) {
-      this.$inputEl.value += el.dataset.key;
+      this.$inputEl.value += target.dataset.key;
     }
+
+    this.$errorEl.classList.toggle(
+      "error",
+      this.koreanRegExp.test(target.dataset.key) || Boolean(!keyEl),
+    );
   }
 
   onMouseUp(e: Event) {
     if (this.keyDown) return;
     this.mouseDown = false;
 
-    const el = e.target as Element;
-    el.closest(".keyBox")?.classList.remove("active");
+    const target = e.target as HTMLElement;
+    target.closest(".keyBox")?.classList.remove("active");
   }
 }
