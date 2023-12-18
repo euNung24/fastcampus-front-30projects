@@ -6,6 +6,8 @@ export default class Keyboard {
   $inputEl: HTMLInputElement;
   $errorEl: HTMLParagraphElement;
   koreanRegExp = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+  type = "english";
+  isShiftPress = false;
 
   constructor() {
     this.setElements();
@@ -43,9 +45,9 @@ export default class Keyboard {
   }
 
   onKeyDown(e: KeyboardEvent) {
-    const value = e.key.toUpperCase();
+    const value = e.key;
     this.$keyboardEl
-      .querySelector(`[data-key=${value}]`)
+      .querySelector(`[data-key="${value}"]`)
       ?.closest(".keyBox")
       .classList.add("active");
     this.$errorEl.classList.toggle("error", this.koreanRegExp.test(value));
@@ -53,7 +55,7 @@ export default class Keyboard {
 
   onKeyUp(e: KeyboardEvent) {
     this.$keyboardEl
-      .querySelector(`[data-key=${e.key.toUpperCase()}]`)
+      .querySelector(`[data-key="${e.key}"]`)
       ?.closest(".keyBox")
       .classList.remove("active");
   }
@@ -65,10 +67,33 @@ export default class Keyboard {
 
   onMouseDown(e: Event) {
     const el = e.target as HTMLElement;
+    if (el.dataset.key === "CapsLock") {
+      this.type = this.type === "english" ? "korean" : "english";
+      this.$keyboardEl.setAttribute("data-type", this.type);
+      return;
+    }
+    if (el.dataset.key === "shift") {
+      this.isShiftPress = !this.isShiftPress;
+      this.$keyboardEl.setAttribute(
+        "data-type",
+        `${this.type}${this.isShiftPress ? "-shift" : ""}`,
+      );
+      return;
+    }
+    if (el.dataset.key?.includes("Back")) {
+      this.$inputEl.value = this.$inputEl.value.slice(0, -1);
+      return;
+    }
+
     const keyBoxEl = el.closest(".keyBox");
     keyBoxEl?.classList.add("active");
-    const enEl = keyBoxEl?.lastElementChild as HTMLElement | null;
-    enEl && (this.$inputEl.value += enEl.dataset.key);
+    const type = this.$keyboardEl.dataset.type;
+    const keyEl = keyBoxEl?.querySelector(`[data-type=${type}]`) as HTMLElement;
+    if (keyEl) {
+      this.$inputEl.value += keyEl.dataset.key;
+    } else if (keyBoxEl) {
+      this.$inputEl.value += el.dataset.key;
+    }
   }
 
   onMouseUp(e: Event) {

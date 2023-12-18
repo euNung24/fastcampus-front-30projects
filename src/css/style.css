@@ -110,15 +110,43 @@ input, kbd {
     box-shadow: -0.5rem 0.5rem 0.5rem rgba(0, 0, 0, 0.5);
 }
 
+.keyboardBox kbd {
+    display: none;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.keyboardBox .fnKey kbd {
+    display: flex;
+}
+
+.keyboardBox[data-type="korean"] .specialKey kbd:last-child,
+.keyboardBox[data-type="english"] .specialKey kbd:last-child,
+.keyboardBox[data-type="korean-shift"] .specialKey kbd:first-child,
+.keyboardBox[data-type="english-shift"] .specialKey kbd:first-child,
+.keyboardBox[data-type="english"] kbd[data-type="english"],
+.keyboardBox[data-type="english-shift"] kbd[data-type="english-shift"],
+.keyboardBox[data-type="korean"] kbd[data-type="korean"],
+.keyboardBox[data-type="korean-shift"] kbd[data-type="korean"],
+.keyboardBox[data-type="korean-shift"] kbd[data-type="korean-shift"] {
+    display: flex;
+}
+
+.keyboardBox[data-type="korean-shift"] .doubleKey kbd[data-type="korean"] {
+    display: none;
+}
+
 .keyboardBox .row {
     display: flex;
 }
 
 .keyBox {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
     margin: 0.25rem;
-    padding: 0.25rem;
     min-width: 3.5rem;
     height: 3.5rem;
     background: #fff;
@@ -146,20 +174,3 @@ input, kbd {
     justify-content: flex-end;
 }
 
-.keyBox > kbd:first-child {
-    align-self: flex-end;
-}
-
-.keyBox.specialKey {
-    flex-direction: column;
-}
-
-.keyBox.specialKey > kbd {
-    align-self: center;
-}
-
-.keyBox.doubleKey > div {
-    display: flex;
-    flex-direction: column-reverse;
-    justify-content: space-between;
-}
