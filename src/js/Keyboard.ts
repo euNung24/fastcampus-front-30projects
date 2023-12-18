@@ -27,6 +27,8 @@ export default class Keyboard {
     document.addEventListener("keydown", this.onKeyDown.bind(this));
     document.addEventListener("keyup", this.onKeyUp.bind(this));
     this.$inputEl.addEventListener("input", this.onChangeInput.bind(this));
+    this.$keyboardEl.addEventListener("mousedown", this.onMouseDown.bind(this));
+    document.addEventListener("mouseup", this.onMouseUp.bind(this));
   }
 
   onChangeTheme(e: Event) {
@@ -59,5 +61,18 @@ export default class Keyboard {
   onChangeInput(e: Event) {
     const el = e.target as HTMLInputElement;
     el.value = el.value.replace(this.koreanRegExp, "");
+  }
+
+  onMouseDown(e: Event) {
+    const el = e.target as HTMLElement;
+    const keyBoxEl = el.closest(".keyBox");
+    keyBoxEl?.classList.add("active");
+    const enEl = keyBoxEl?.lastElementChild as HTMLElement | null;
+    enEl && (this.$inputEl.value += enEl.dataset.key);
+  }
+
+  onMouseUp(e: Event) {
+    const el = e.target as Element;
+    el.closest(".keyBox")?.classList.remove("active");
   }
 }
