@@ -146,7 +146,6 @@ export default class Keyboard {
     if (this.keyDown) return;
     this.mouseDown = false;
 
-    const target = e.target as HTMLElement;
-    target.closest(".keyBox")?.classList.remove("active");
+    this.$keyboardEl.querySelector(".active").classList.remove("active");
   }
 }
