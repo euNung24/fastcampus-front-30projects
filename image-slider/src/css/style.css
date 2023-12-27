@@ -106,7 +106,11 @@ button {
     bottom: 16px;
 }
 
-.image-slider-wrapper .btn-control-box .active {
+.image-slider-wrapper .btn-control-box.pause .btn-play {
+    display: block;
+}
+
+.image-slider-wrapper .btn-control-box.play .btn-pause {
     display: block;
 }
 
