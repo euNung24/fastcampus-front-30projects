@@ -86,7 +86,7 @@ button {
     bottom: 16px;
 }
 
-.image-slider-wrapper .indicator-box span {
+.image-slider-wrapper .indicator-box li {
     display: inline-block;
     width: 12px;
     height: 12px;
@@ -95,7 +95,7 @@ button {
     background: rgba(255, 255, 255, 0.4);
 }
 
-.image-slider-wrapper .indicator-box span.active {
+.image-slider-wrapper .indicator-box li.active {
     background: #fff;
 }
 
