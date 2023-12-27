@@ -1,3 +1,4 @@
 import '../css/style.css';
+import ImageSlider from './ImageSlider';
 
-console.log('hi');
+new ImageSlider();

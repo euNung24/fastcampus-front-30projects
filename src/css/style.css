@@ -22,21 +22,25 @@ button {
     width: 1000px;
     height: 400px;
     position: relative;
+    overflow: hidden;
 }
 
 .image-slider-wrapper .fa-solid {
-    font-size: 24px;
+    font-size: 20px;
+    color: #fff;
 }
 
 .image-slider-wrapper .image-box {
     position: absolute;
     width: 100%;
     height: 100%;
+    left: 0;
+    transition: left 0.2s;
 }
 
 .image-slider-wrapper .image-box li {
-    width: 100%;
-    height: 100%;
+    width: 1000px;
+    height: 400px;
     float: left;
 }
 
@@ -49,28 +53,29 @@ button {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 28px;
-    height: 28px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+    width: 32px;
+    height: 48px;
     opacity: 0;
-    z-index: -1;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
     transition: opacity 0.2s, transform 0.2s;
+    z-index: -1;
 }
 
 .image-slider-wrapper .btn-slide-box .btn-prev {
     left: 0;
-    transform: translateX(-100%);
+    transform: translateX(-100%) translateY(-50%);
 }
 
 .image-slider-wrapper .btn-slide-box .btn-next {
     right: 0;
-    transform: translateX(100%);
+    transform: translateX(100%) translateY(-50%);
 }
 
 .image-slider-wrapper:hover .image-box + .btn-slide-box button {
     z-index: initial;
     opacity: 1;
-    transform: translateX(0);
+    transform: translateX(0) translateY(-50%);
 }
 
 .image-slider-wrapper .indicator-box {
@@ -78,14 +83,13 @@ button {
     justify-content: center;
     width: 100%;
     position: absolute;
-    bottom: 8px;
-
+    bottom: 16px;
 }
 
 .image-slider-wrapper .indicator-box span {
     display: inline-block;
-    width: 8px;
-    height: 8px;
+    width: 12px;
+    height: 12px;
     margin: 0 8px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.4);
@@ -98,8 +102,8 @@ button {
 .image-slider-wrapper .btn-control-box button {
     display: none;
     position: absolute;
-    right: 16px;
-    bottom: 8px;
+    right: 32px;
+    bottom: 16px;
 }
 
 .image-slider-wrapper .btn-control-box .active {
