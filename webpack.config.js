@@ -7,7 +7,8 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = (env) => {
   const isDevMode = env.mode === "development";
   const devServer= {
-    watchFiles: 'index.html'
+    watchFiles: 'index.html',
+    hot: true
   }
 
   return {
