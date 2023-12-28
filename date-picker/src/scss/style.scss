@@ -31,7 +31,7 @@ button {
     left: 0;
     right: 0;
     display: none;
-    width: 600px;
+    width: 700px;
     margin: auto;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
     text-align: center;
@@ -72,7 +72,11 @@ button {
       grid-template-columns: repeat(7, 1fr);
 
       span {
-        padding: 8px;
+        width: 100px;
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         cursor: pointer;
 
         &:hover {
@@ -86,14 +90,6 @@ button {
 
         &.select {
           background-color: rgba(234, 137, 41, 0.74);
-        }
-
-        &:nth-child(7n + 1) {
-          color: red;
-        }
-
-        &:nth-child(7n + 7) {
-          color: blue;
         }
       }
     }
