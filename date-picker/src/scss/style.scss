@@ -1,3 +1,103 @@
-body {
-  background: violet;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
+
+button {
+  background: none;
+  border: none;
+}
+
+.date-picker-wrapper {
+  position: relative;
+
+  .date-picker-input {
+    margin: 30px auto 0;
+    width: 100px;
+    padding: 8px 12px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba(0, 55, 100, 0.2);
+    }
+  }
+
+  .calendar-wrapper {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    display: none;
+    width: 600px;
+    margin: auto;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    border-radius: 5px;
+
+    &.show {
+      display: block;
+    }
+
+    .month {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #ddd;
+      padding: 4px 8px;
+
+      button {
+        cursor: pointer;
+      }
+    }
+
+    .days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      border-bottom: 1px solid #ddd;
+      padding: 4px 0;
+
+      & span:nth-child(7n + 1) {
+        color: red;
+      }
+
+      & span:nth-child(7n + 7) {
+        color: blue;
+      }
+    }
+
+    .dates {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+
+      span {
+        padding: 8px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: rgba(0, 55, 100, 0.2);
+        }
+
+
+        &.today {
+          background-color: rgba(129, 78, 192, 0.63);
+        }
+
+        &.select {
+          background-color: rgba(234, 137, 41, 0.74);
+        }
+
+        &:nth-child(7n + 1) {
+          color: red;
+        }
+
+        &:nth-child(7n + 7) {
+          color: blue;
+        }
+      }
+    }
+  }
+}
+
+
