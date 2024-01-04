@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useCallback, useRef, useState } from "react";
+import React, { useCallback, useState } from "react";
 import "./App.css";
 import ImageBox from "./components/ImageBox";
 import { useDropzone } from "react-dropzone";
