@@ -1,3 +1,7 @@
+.bmi-calculator-wrapper {
+    width: 588px;
+}
+
 .bmi-calculator-wrapper .row {
     display: flex;
     gap: 16px;
@@ -46,4 +50,42 @@
 
 .bmi-calculator-wrapper .btn:active {
     background-color: #2699FB;
+}
+
+.bmi-calculator-wrapper meter {
+    width: 100%;
+}
+
+.bmi-calculator-wrapper .result {
+    margin-top: 24px;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
+.bmi-calculator-wrapper .result.show {
+    display: flex;
+}
+
+.bmi-calculator-wrapper .result .result-text {
+    font-size: 32px;
+    text-align: center;
+    color: #2699FB;
+}
+
+.bmi-calculator-wrapper .result .result-text p {
+    margin: 4px;
+}
+
+.bmi-calculator-wrapper .result .state {
+    font-size: 24px;
+}
+
+.bmi-calculator-wrapper .result .state span {
+    color: #24F602;
+}
+
+.bmi-calculator-wrapper .result .state .caution {
+    color: #F6021F;
 }
