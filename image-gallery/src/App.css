@@ -6,12 +6,21 @@
     height: 100vh;
 }
 
-.init-box {
+.gallery-box {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 80px;
+}
+
+.row {
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 100%;
+    margin: 0 140px;
+    overflow-x: auto;
+    gap: 100px;
 }
 
 .text-center {
@@ -24,13 +33,30 @@
     align-items: center;
     width: 100px;
     height: 100px;
+    flex-shrink: 0;
     background: none;
     border: 1px solid #333333;
     outline: none;
+    font-size: 24px;
+    line-height: 24px;
+}
+
+.gallery-box input {
+    display: none;
+}
+
+.gallery-box .image-box,
+.gallery-box .image-box img {
+    width: 200px;
+    height: 200px;
 }
 
 @media screen and (max-width: 500px) {
-    .init-box {
+    .gallery-box {
         gap: 40px;
+    }
+
+    .row {
+        margin: 0 40px;
     }
 }
