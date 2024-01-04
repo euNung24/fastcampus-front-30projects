@@ -24,7 +24,6 @@
     color: #2699FB;
     box-sizing: border-box;
     font-size: 12px;
-    outline: none;
 }
 
 .bmi-calculator-wrapper input::placeholder {
