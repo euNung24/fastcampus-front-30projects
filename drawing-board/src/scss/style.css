@@ -8324,7 +8324,6 @@ readers do not read off random characters that represent icons */
 .drawing-board-wrapper .detail-tool-box {
   width: 100%;
   display: flex;
-  justify-content: space-between;
 }
 .drawing-board-wrapper .brush-panel {
   display: flex;
@@ -8362,6 +8361,7 @@ readers do not read off random characters that represent icons */
   background-color: #f00;
 }
 .drawing-board-wrapper .mini-map {
+  margin-left: auto;
   width: 100px;
   height: 100px;
   border: 2px solid #676767;
