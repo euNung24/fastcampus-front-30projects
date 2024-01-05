@@ -12,41 +12,44 @@
 <body>
   <div class='container'>
     <section class='drawing-board-wrapper'>
-      <div class='toolbar'>
-        <div class='tool brush'>
-          <i class="fa-solid fa-paintbrush"></i>
+      <div class='drawing-board'>
+        <div class='toolbar'>
+          <div class='tool brush'>
+            <i class="fa-solid fa-paintbrush"></i>
+          </div>
+          <div class='tool eraser'>
+            <i class="fa-solid fa-eraser"></i>
+          </div>
+          <div class='tool map'>
+            <i class="fa-solid fa-map"></i>
+          </div>
+          <div class='tool undo'>
+            <i class="fa-solid fa-rotate-left"></i>
+          </div>
+          <div class='tool trash'>
+            <i class="fa-solid fa-trash"></i>
+          </div>
+          <div class='tool download'>
+            <i class="fa-solid fa-download"></i>
+          </div>
+          <div class='tool color'>
+            <input type='color' name='color' id='brush-color'>
+          </div>
         </div>
-        <div class='tool eraser'>
-          <i class="fa-solid fa-eraser"></i>
-        </div>
-        <div class='tool map'>
-          <i class="fa-solid fa-map"></i>
-        </div>
-        <div class='tool undo'>
-          <i class="fa-solid fa-rotate-left"></i>
-        </div>
-        <div class='tool trash'>
-          <i class="fa-solid fa-trash"></i>
-        </div>
-        <div class='tool download'>
-          <i class="fa-solid fa-download"></i>
-        </div>
-        <div class='tool color'>
-          <input type='color' name='color' id='brush-color'>
-        </div>
+        <canvas width='900' height='800'></canvas>
       </div>
-      <canvas width='900' height='800'></canvas>
-      <div class='brush-panel'>
-        <div class='brush-input-box'>
-          <label for='brush-size'>Size</label>
-          <input type='range' name='brush-size' id='brush-size'>
+      <div class='detail-tool-box'>
+        <div class='brush-panel'>
+          <div class='brush-input-box'>
+            <label for='brush-size'>Size</label>
+            <input type='range' name='brush-size' id='brush-size'>
+          </div>
+          <div class='brush-info'>
+            <span class='circle'></span>
+          </div>
         </div>
-        <div class='circle-size'>
-
+        <div class='mini-map'>
         </div>
-      </div>
-      <div class='mini-map'>
-
       </div>
     </section>
   </div>
