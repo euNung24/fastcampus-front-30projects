@@ -25,11 +25,14 @@ class DrawingBoard {
     this.toolbarEl = this.drawingBoardEl.querySelector(".toolbar");
     this.brushEl = this.toolbarEl.querySelector(".brush");
     this.eraserEl = this.toolbarEl.querySelector(".eraser");
+    this.mapEl = this.toolbarEl.querySelector(".map");
     this.brushColorInputEl = this.toolbarEl.querySelector(".color input");
     this.canvasEl = this.drawingBoardEl.querySelector("canvas");
     this.brushPanelEl = this.wrapperEl.querySelector(".brush-panel");
     this.brushSizeInputEl = this.brushPanelEl.querySelector("input");
     this.brushInfoEl = this.brushPanelEl.querySelector(".circle");
+    this.miniMapEl = this.wrapperEl.querySelector(".mini-map");
+    this.miniMapImgEl = this.miniMapEl.querySelector("img");
   }
 
   init() {
@@ -47,6 +50,7 @@ class DrawingBoard {
   setEvents() {
     this.brushEl.addEventListener("click", this.onClickBrush.bind(this));
     this.eraserEl.addEventListener("click", this.onClickEraser.bind(this));
+    this.mapEl.addEventListener("click", this.onClickMap.bind(this));
     this.canvasEl.addEventListener("mousedown", this.onMouseDown.bind(this));
     this.canvasEl.addEventListener("mousemove", this.onMouseMove.bind(this));
     this.canvasEl.addEventListener("mouseup", this.onFinishBrush.bind(this));
@@ -121,6 +125,7 @@ class DrawingBoard {
 
   onFinishBrush() {
     this.isMouseDown = false;
+    this.updateMiniMap();
   }
 
   onChangeBrushSize(e) {
@@ -138,6 +143,17 @@ class DrawingBoard {
   onChangeBrushColor(e) {
     this.BRUSH.color = e.target.value;
     this.brushInfoEl.style.backgroundColor = this.BRUSH.color;
+  }
+
+  onClickMap(e) {
+    e.currentTarget.classList.toggle("active");
+    this.miniMapEl.classList.toggle("show");
+    this.updateMiniMap();
+  }
+
+  updateMiniMap() {
+    if (!this.mapEl.classList.contains("active")) return;
+    this.miniMapImgEl.src = this.canvasEl.toDataURL();
   }
 }
 
