@@ -6,10 +6,50 @@
         content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'>
   <meta http-equiv='X-UA-Compatible' content='ie=edge'>
   <title>Drawing Board</title>
+  <link rel='shortcut icon' href='./favicon.png' type='image/x-icon'>
   <link rel='stylesheet' href='./src/scss/style.scss'>
 </head>
 <body>
-  <h1>Hello</h1>
+  <div class='container'>
+    <section class='drawing-board-wrapper'>
+      <div class='toolbar'>
+        <div class='tool brush'>
+          <i class="fa-solid fa-paintbrush"></i>
+        </div>
+        <div class='tool eraser'>
+          <i class="fa-solid fa-eraser"></i>
+        </div>
+        <div class='tool map'>
+          <i class="fa-solid fa-map"></i>
+        </div>
+        <div class='tool undo'>
+          <i class="fa-solid fa-rotate-left"></i>
+        </div>
+        <div class='tool trash'>
+          <i class="fa-solid fa-trash"></i>
+        </div>
+        <div class='tool download'>
+          <i class="fa-solid fa-download"></i>
+        </div>
+        <div class='tool color'>
+          <input type='color' name='color' id='brush-color'>
+        </div>
+      </div>
+      <canvas width='900' height='800'></canvas>
+      <div class='brush-panel'>
+        <div class='brush-input-box'>
+          <label for='brush-size'>Size</label>
+          <input type='range' name='brush-size' id='brush-size'>
+        </div>
+        <div class='circle-size'>
+
+        </div>
+      </div>
+      <div class='mini-map'>
+
+      </div>
+    </section>
+  </div>
   <script src='./src/js/index.js'></script>
 </body>
 </html>

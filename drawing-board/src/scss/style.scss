@@ -1,3 +1,120 @@
-h1 {
-  color: #24F602;
+$fa-font-path: "../../node_modules/@fortawesome/fontawesome-free/webfonts";
+@import "../../node_modules/@fortawesome/fontawesome-free/scss/solid.scss";
+@import "../../node_modules/@fortawesome/fontawesome-free/scss/regular.scss";
+@import "../../node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss";
+
+* {
+  box-sizing: border-box;
 }
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.drawing-board-wrapper {
+  position: relative;
+  width: 80%;
+  height: 70%;
+  margin-top: -8%;
+  min-width: 300px;
+  min-height: 300px;
+  max-width: 800px;
+  max-height: 800px;
+
+  .toolbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    transform: translateX(-100%);
+    background-color: #676767;
+
+    .tool {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &.active {
+        background-color: #3d3d3d;
+      }
+
+      &.color input {
+        border: none;
+        background: none;
+        padding: 0;
+      }
+
+      i {
+        font-size: 1.5rem;
+        color: #FFF;
+      }
+    }
+  }
+
+  canvas {
+    width: 100%;
+    height: 100%;
+    border: 2px solid #676767;
+  }
+
+  .brush-panel {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transform: translateY(100%);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 200px;
+    height: 48px;
+    background: #676767;
+
+    &.hide {
+      display: none;
+    }
+
+    .brush-input-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      label {
+        font-size: 0.6rem;
+        color: #FFF;
+      }
+    }
+
+    .circle-size {
+      border-radius: 50%;
+      width: 1rem;
+      height: 1rem;
+      background-color: #f00;
+    }
+  }
+
+  .mini-map {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 100px;
+    height: 100px;
+    transform: translateY(100%);
+    border: 2px solid #676767;
+    border-top: none;
+
+    &.hide {
+      display: none;
+    }
+  }
+}
+
+
+
+
+
