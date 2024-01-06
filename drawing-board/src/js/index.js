@@ -30,6 +30,7 @@ class DrawingBoard {
     this.mapEl = this.toolbarEl.querySelector(".map");
     this.undoEl = this.toolbarEl.querySelector(".undo");
     this.clearEl = this.toolbarEl.querySelector(".trash");
+    this.downloadEl = this.toolbarEl.querySelector(".download");
     this.brushColorInputEl = this.toolbarEl.querySelector(".color input");
     this.canvasEl = this.drawingBoardEl.querySelector("canvas");
     this.brushPanelEl = this.wrapperEl.querySelector(".brush-panel");
@@ -65,6 +66,7 @@ class DrawingBoard {
     this.mapEl.addEventListener("click", this.onClickMap.bind(this));
     this.undoEl.addEventListener("click", this.onClickUndo.bind(this));
     this.clearEl.addEventListener("click", this.onClickClear.bind(this));
+    this.downloadEl.addEventListener("click", this.onClickDownload.bind(this));
     this.canvasEl.addEventListener("mousedown", this.onMouseDown.bind(this));
     this.canvasEl.addEventListener("mousemove", this.onMouseMove.bind(this));
     this.canvasEl.addEventListener("mouseup", this.onFinishBrush.bind(this));
@@ -207,6 +209,11 @@ class DrawingBoard {
     this.ctx.clearRect(0, 0, this.canvasEl.width, this.canvasEl.height);
     this.setCanvasColor();
     this.updateMiniMap();
+  }
+
+  onClickDownload(e) {
+    e.currentTarget.href = this.canvasEl.toDataURL("image/jpeg", 1);
+    e.currentTarget.download = "example.jpeg";
   }
 }
 

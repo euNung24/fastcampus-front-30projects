@@ -60,3 +60,8 @@
   - [x] 선택 전 캔버스 상태 History 추가
   - [x] navigate Update
 
+### 다운로드
+- 다운로드 선택
+  - [x] Download Tool Active & InActive
+  - [x] 이미지 저장
+
