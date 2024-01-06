@@ -51,3 +51,12 @@
   - [x] 캔버스 History Update
 - 되돌리기 횟수 제한
   - [x] 5회
+
+
+### 초기화
+- 초기화 선택
+  - [x] Trash Tool Active & InActive
+  - [x] 캔버스 상태 초기화
+  - [x] 선택 전 캔버스 상태 History 추가
+  - [x] navigate Update
+

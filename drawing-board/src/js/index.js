@@ -29,6 +29,7 @@ class DrawingBoard {
     this.eraserEl = this.toolbarEl.querySelector(".eraser");
     this.mapEl = this.toolbarEl.querySelector(".map");
     this.undoEl = this.toolbarEl.querySelector(".undo");
+    this.clearEl = this.toolbarEl.querySelector(".trash");
     this.brushColorInputEl = this.toolbarEl.querySelector(".color input");
     this.canvasEl = this.drawingBoardEl.querySelector("canvas");
     this.brushPanelEl = this.wrapperEl.querySelector(".brush-panel");
@@ -42,12 +43,20 @@ class DrawingBoard {
     // 브러쉬 active
     this.brushEl.click();
     // canvas 설정
+    this.setInitCanvas();
+  }
+
+  setInitCanvas() {
     this.ctx = this.canvasEl.getContext("2d");
     const { width, height } = this.canvasEl.getBoundingClientRect();
     this.canvasEl.width = width;
     this.canvasEl.height = height;
+    this.setCanvasColor();
+  }
+
+  setCanvasColor() {
     this.ctx.fillStyle = this.CANVAS_COLOR;
-    this.ctx.fillRect(0, 0, width, height);
+    this.ctx.fillRect(0, 0, this.canvasEl.width, this.canvasEl.height);
   }
 
   setEvents() {
@@ -55,6 +64,7 @@ class DrawingBoard {
     this.eraserEl.addEventListener("click", this.onClickEraser.bind(this));
     this.mapEl.addEventListener("click", this.onClickMap.bind(this));
     this.undoEl.addEventListener("click", this.onClickUndo.bind(this));
+    this.clearEl.addEventListener("click", this.onClickClear.bind(this));
     this.canvasEl.addEventListener("mousedown", this.onMouseDown.bind(this));
     this.canvasEl.addEventListener("mousemove", this.onMouseMove.bind(this));
     this.canvasEl.addEventListener("mouseup", this.onFinishBrush.bind(this));
@@ -190,6 +200,13 @@ class DrawingBoard {
       );
       this.updateMiniMap();
     };
+  }
+
+  onClickClear() {
+    this.addHistory();
+    this.ctx.clearRect(0, 0, this.canvasEl.width, this.canvasEl.height);
+    this.setCanvasColor();
+    this.updateMiniMap();
   }
 }
 
