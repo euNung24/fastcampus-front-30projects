@@ -41,3 +41,13 @@
   - [x] 마우스 Down -> Up 시 miniMap Update
 - InActive
   - [x] miniMap Update 중지
+
+### 되돌리기
+- 되돌리기 선택
+  - [x] Undo Tool Active & InActive
+  - [x] 이전 캔버스 상태 보여주기
+  - [x] navigate Update
+- 브러시 & 지우개 마우스 클릭 시
+  - [x] 캔버스 History Update
+- 되돌리기 횟수 제한
+  - [x] 5회

@@ -8306,6 +8306,9 @@ readers do not read off random characters that represent icons */
 .drawing-board-wrapper .toolbar .tool.active {
   background-color: #3d3d3d;
 }
+.drawing-board-wrapper .toolbar .tool:active {
+  background-color: #3d3d3d;
+}
 .drawing-board-wrapper .toolbar .tool.color input {
   border: none;
   background: none;

@@ -13,6 +13,8 @@ class DrawingBoard {
 
   isMouseDown = false;
 
+  canvasHistory = [];
+
   constructor() {
     this.setElements();
     this.setEvents();
@@ -26,6 +28,7 @@ class DrawingBoard {
     this.brushEl = this.toolbarEl.querySelector(".brush");
     this.eraserEl = this.toolbarEl.querySelector(".eraser");
     this.mapEl = this.toolbarEl.querySelector(".map");
+    this.undoEl = this.toolbarEl.querySelector(".undo");
     this.brushColorInputEl = this.toolbarEl.querySelector(".color input");
     this.canvasEl = this.drawingBoardEl.querySelector("canvas");
     this.brushPanelEl = this.wrapperEl.querySelector(".brush-panel");
@@ -51,6 +54,7 @@ class DrawingBoard {
     this.brushEl.addEventListener("click", this.onClickBrush.bind(this));
     this.eraserEl.addEventListener("click", this.onClickEraser.bind(this));
     this.mapEl.addEventListener("click", this.onClickMap.bind(this));
+    this.undoEl.addEventListener("click", this.onClickUndo.bind(this));
     this.canvasEl.addEventListener("mousedown", this.onMouseDown.bind(this));
     this.canvasEl.addEventListener("mousemove", this.onMouseMove.bind(this));
     this.canvasEl.addEventListener("mouseup", this.onFinishBrush.bind(this));
@@ -109,6 +113,8 @@ class DrawingBoard {
   onMouseDown(e) {
     this.isMouseDown = true;
     const { x, y } = this.getMousePosition(e);
+    this.addHistory();
+
     this.ctx.beginPath();
     this.ctx.lineCap = "round";
     this.ctx.lineWidth = this.MODE.size;
@@ -154,6 +160,36 @@ class DrawingBoard {
   updateMiniMap() {
     if (!this.mapEl.classList.contains("active")) return;
     this.miniMapImgEl.src = this.canvasEl.toDataURL();
+  }
+
+  addHistory() {
+    if (this.canvasHistory.length >= 5) {
+      this.canvasHistory.shift();
+    }
+    this.canvasHistory.push(this.canvasEl.toDataURL());
+  }
+  onClickUndo() {
+    if (this.canvasHistory.length === 0) {
+      alert("더 이상 되돌릴 수 없습니다.");
+      return;
+    }
+    const image = new Image();
+    image.src = this.canvasHistory.pop();
+    image.onload = () => {
+      this.ctx.clearRect(0, 0, this.canvasEl.width, this.canvasEl.height);
+      this.ctx.drawImage(
+        image,
+        0,
+        0,
+        this.canvasEl.width,
+        this.canvasEl.height,
+        0,
+        0,
+        this.canvasEl.width,
+        this.canvasEl.height
+      );
+      this.updateMiniMap();
+    };
   }
 }
 
