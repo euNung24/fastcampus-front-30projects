@@ -1,19 +1,33 @@
 class DrawingBoard {
   CANVAS_COLOR = "#FFF";
-
   BRUSH = {
     color: "#000",
     size: 10,
   };
-
   ERASER = {
     color: this.CANVAS_COLOR,
     size: 10,
   };
-
+  ctx;
   isMouseDown = false;
-
   canvasHistory = [];
+
+  wrapperEl;
+  drawingBoardEl;
+  toolbarEl;
+  brushEl;
+  eraserEl;
+  mapEl;
+  undoEl;
+  clearEl;
+  downloadEl;
+  brushColorInputEl;
+  canvasEl;
+  brushPanelEl;
+  brushSizeInputEl;
+  brushInfoEl;
+  miniMapEl;
+  miniMapImgEl;
 
   constructor() {
     this.setElements();
