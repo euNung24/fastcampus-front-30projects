@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import "./App.css";
 
+declare global {
+  interface Window {
+    kakao: any;
+  }
+}
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  useEffect(() => {
+    var container = document.getElementById("map"); //지도를 담을 영역의 DOM 레퍼런스
+    var options = {
+      //지도를 생성할 때 필요한 기본 옵션
+      center: new window.kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
+      level: 3, //지도의 레벨(확대, 축소 정도)
+    };
+
+    var map = new window.kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+    return () => {};
+  }, []);
+
+  return <div id="map" style={{ width: "500px", height: "400px" }}></div>;
 }
 
 export default App;
