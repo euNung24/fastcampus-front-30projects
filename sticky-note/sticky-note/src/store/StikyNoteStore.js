@@ -1,7 +1,7 @@
 import { makeObservable, observable, action } from "mobx";
 import { v1 as uuidv1 } from "uuid";
 class StickyNoteModel {
-  id = uuidv1;
+  id = uuidv1();
   content = "";
   width = 250;
   height = 300;
@@ -28,6 +28,7 @@ export default class StickyNoteStore {
       editNote: action,
       resizeNote: action,
       changeNotePos: action,
+      deleteNote: action,
     });
   }
 
@@ -51,5 +52,9 @@ export default class StickyNoteStore {
   changeNotePos(id, [x, y]) {
     this.notes[this.getNoteIndex(id)].x = x;
     this.notes[this.getNoteIndex(id)].y = y;
+  }
+
+  deleteNote(id) {
+    this.notes.splice(this.getNoteIndex(id), 1);
   }
 }

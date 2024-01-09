@@ -4,13 +4,22 @@ import CloseIcon from "@mui/icons-material/Close";
 import "./stickyMemo.scss";
 import Draggable from "@eunung/draggable";
 import { debounce } from "@mui/material";
+import { observer } from "mobx-react-lite";
 
-function StickyNote({ note, onEditNote, onResizeNote, onChangeNotePos }) {
+function StickyNote({
+  note,
+  onEditNote,
+  onResizeNote,
+  onChangeNotePos,
+  onDeleteNote,
+}) {
   const noteRef = useRef(null);
+
   const onChangeContent = useMemo(
     () => debounce((e) => onEditNote(note.id, e.target.value), 300),
     [note.id, onEditNote],
   );
+
   const onResize = useMemo(
     () =>
       debounce((entries) => {
@@ -28,15 +37,21 @@ function StickyNote({ note, onEditNote, onResizeNote, onChangeNotePos }) {
     [note.id, onChangeNotePos],
   );
 
+  const onClickDeleteBtn = useCallback(() => {
+    onDeleteNote(note.id);
+  }, [note.id, onDeleteNote]);
+
   useEffect(() => {
     let resizeObserver = new ResizeObserver(onResize);
     resizeObserver.observe(noteRef.current);
 
     return () => {
+      onChangeContent.clear();
+      onResize.clear();
       resizeObserver.disconnect();
       resizeObserver = null;
     };
-  });
+  }, [onChangeContent, onResize]);
 
   return (
     <Draggable>
@@ -50,6 +65,7 @@ function StickyNote({ note, onEditNote, onResizeNote, onChangeNotePos }) {
             <DragHandleIcon sx={{ cursor: "move", fontSize: "25px" }} />
             <CloseIcon
               sx={{ cursor: "pointer", fontSize: "25px", float: "right" }}
+              onClick={onClickDeleteBtn}
             />
           </div>
         </Draggable.Handle>
@@ -65,4 +81,4 @@ function StickyNote({ note, onEditNote, onResizeNote, onChangeNotePos }) {
   );
 }
 
-export default StickyNote;
+export default observer(StickyNote);

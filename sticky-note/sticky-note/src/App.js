@@ -17,15 +17,18 @@ function App({ store }) {
     (id, [x, y]) => store.changeNotePos(id, [x, y]),
     [store],
   );
+  const onDeleteNote = useCallback((id) => store.deleteNote(id), [store]);
+
   return (
     <>
       {store.notes.map((note) => (
         <StickyMemo
-          key={note}
+          key={note.id}
           note={note}
           onEditNote={onEditNote}
           onResizeNote={onResizeNote}
           onChangeNotePos={onChangeNotePos}
+          onDeleteNote={onDeleteNote}
         />
       ))}
       <AddIcon
