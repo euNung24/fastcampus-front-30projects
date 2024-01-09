@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useMemo } from "react";
 import DragHandleIcon from "@mui/icons-material/DragHandle";
 import CloseIcon from "@mui/icons-material/Close";
 import "./stickyMemo.scss";
 import Draggable from "@eunung/draggable";
+import { debounce } from "@mui/material";
 
-function StickyMemo() {
+function StickyNote({ note, onEditNote }) {
+  const onChangeContent = useMemo(
+    () => debounce((e) => onEditNote(note.id, e.target.value), 300),
+    [note.id, onEditNote],
+  );
   return (
     <Draggable>
       <div
@@ -21,13 +26,14 @@ function StickyMemo() {
         </Draggable.Handle>
         <textarea
           className="memo-text-area"
-          defaultValue={"Enter memo here"}
+          defaultValue=""
           name="txt"
           placeholder="Enter memo here"
+          onChange={onChangeContent}
         ></textarea>
       </div>
     </Draggable>
   );
 }
 
-export default StickyMemo;
+export default StickyNote;

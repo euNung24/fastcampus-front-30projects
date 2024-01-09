@@ -25,10 +25,19 @@ export default class StickyNoteStore {
     makeObservable(this, {
       notes: observable,
       addNote: action,
+      editNote: action,
     });
+  }
+
+  getNoteIndex(id) {
+    return this.notes.findIndex((note) => note.id === id);
   }
 
   addNote() {
     this.notes.push(new StickyNoteModel());
+  }
+
+  editNote(id, content) {
+    this.notes[this.getNoteIndex(id)].content = content;
   }
 }
