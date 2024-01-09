@@ -13,7 +13,10 @@ function App({ store }) {
     (id, [width, height]) => store.resizeNote(id, [width, height]),
     [store],
   );
-
+  const onChangeNotePos = useCallback(
+    (id, [x, y]) => store.changeNotePos(id, [x, y]),
+    [store],
+  );
   return (
     <>
       {store.notes.map((note) => (
@@ -22,6 +25,7 @@ function App({ store }) {
           note={note}
           onEditNote={onEditNote}
           onResizeNote={onResizeNote}
+          onChangeNotePos={onChangeNotePos}
         />
       ))}
       <AddIcon

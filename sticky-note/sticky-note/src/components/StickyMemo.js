@@ -1,11 +1,11 @@
-import React, { useEffect, useMemo, useRef } from "react";
+import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import DragHandleIcon from "@mui/icons-material/DragHandle";
 import CloseIcon from "@mui/icons-material/Close";
 import "./stickyMemo.scss";
 import Draggable from "@eunung/draggable";
 import { debounce } from "@mui/material";
 
-function StickyNote({ note, onEditNote, onResizeNote }) {
+function StickyNote({ note, onEditNote, onResizeNote, onChangeNotePos }) {
   const noteRef = useRef(null);
   const onChangeContent = useMemo(
     () => debounce((e) => onEditNote(note.id, e.target.value), 300),
@@ -18,6 +18,14 @@ function StickyNote({ note, onEditNote, onResizeNote }) {
         onResizeNote(note.id, [width, height]);
       }, 300),
     [note.id, onResizeNote],
+  );
+
+  const onDrag = useCallback(
+    (e) => {
+      const { left, top } = e.target.getBoundingClientRect();
+      onChangeNotePos(note.id, [left, top]);
+    },
+    [note.id, onChangeNotePos],
   );
 
   useEffect(() => {
@@ -37,7 +45,7 @@ function StickyNote({ note, onEditNote, onResizeNote }) {
         className="memo-container"
         style={{ width: `${note.width}px`, height: `${note.height}px` }}
       >
-        <Draggable.Handle>
+        <Draggable.Handle onDrag={(e) => onDrag(e)}>
           <div className="menu">
             <DragHandleIcon sx={{ cursor: "move", fontSize: "25px" }} />
             <CloseIcon
