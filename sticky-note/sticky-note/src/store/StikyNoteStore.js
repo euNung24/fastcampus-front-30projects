@@ -26,6 +26,7 @@ export default class StickyNoteStore {
       notes: observable,
       addNote: action,
       editNote: action,
+      resizeNote: action,
     });
   }
 
@@ -39,5 +40,10 @@ export default class StickyNoteStore {
 
   editNote(id, content) {
     this.notes[this.getNoteIndex(id)].content = content;
+  }
+
+  resizeNote(id, [width, height]) {
+    this.notes[this.getNoteIndex(id)].width = width;
+    this.notes[this.getNoteIndex(id)].hegith = height;
   }
 }

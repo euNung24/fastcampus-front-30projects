@@ -1,20 +1,41 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import DragHandleIcon from "@mui/icons-material/DragHandle";
 import CloseIcon from "@mui/icons-material/Close";
 import "./stickyMemo.scss";
 import Draggable from "@eunung/draggable";
 import { debounce } from "@mui/material";
 
-function StickyNote({ note, onEditNote }) {
+function StickyNote({ note, onEditNote, onResizeNote }) {
+  const noteRef = useRef(null);
   const onChangeContent = useMemo(
     () => debounce((e) => onEditNote(note.id, e.target.value), 300),
     [note.id, onEditNote],
   );
+  const onResize = useMemo(
+    () =>
+      debounce((entries) => {
+        const { width, height } = entries?.[0].contentRect;
+        onResizeNote(note.id, [width, height]);
+      }, 300),
+    [note.id, onResizeNote],
+  );
+
+  useEffect(() => {
+    let resizeObserver = new ResizeObserver(onResize);
+    resizeObserver.observe(noteRef.current);
+
+    return () => {
+      resizeObserver.disconnect();
+      resizeObserver = null;
+    };
+  });
+
   return (
     <Draggable>
       <div
+        ref={noteRef}
         className="memo-container"
-        style={{ width: `${250}px`, height: `${300}px` }}
+        style={{ width: `${note.width}px`, height: `${note.height}px` }}
       >
         <Draggable.Handle>
           <div className="menu">

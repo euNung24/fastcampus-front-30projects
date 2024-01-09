@@ -9,10 +9,20 @@ function App({ store }) {
     (id, content) => store.editNote(id, content),
     [store],
   );
+  const onResizeNote = useCallback(
+    (id, [width, height]) => store.resizeNote(id, [width, height]),
+    [store],
+  );
+
   return (
     <>
       {store.notes.map((note) => (
-        <StickyMemo key={note} note={note} onEditNote={onEditNote} />
+        <StickyMemo
+          key={note}
+          note={note}
+          onEditNote={onEditNote}
+          onResizeNote={onResizeNote}
+        />
       ))}
       <AddIcon
         sx={{
