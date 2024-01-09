@@ -2,7 +2,7 @@ import Draggable from "./lib/Draggable";
 
 function App() {
   return (
-    <Draggable>
+    <Draggable x={350} y={200}>
       <Draggable.Handle
         onDrag={(e) => {
           console.log(e.clientX, e.clientY);

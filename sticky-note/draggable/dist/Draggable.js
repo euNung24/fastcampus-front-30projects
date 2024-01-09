@@ -2,9 +2,11 @@ import React, { createContext, useCallback, useContext, useEffect, useMemo, useR
 import { debounce } from "underscore";
 const DraggableContext = /*#__PURE__*/createContext(null);
 function Draggable({
-  children
+  children,
+  x = 0,
+  y = 0
 }) {
-  const [position, setPosition] = useState([0, 0]);
+  const [position, setPosition] = useState([x, y]);
   return /*#__PURE__*/React.createElement(DraggableContext.Provider, {
     value: {
       position,
@@ -38,8 +40,7 @@ function Handle({
     setPosition(newPosition);
     debouncedDrag(e);
   }, [setPosition, debouncedDrag]);
-  const onEndDrag = useCallback(e => {
-    console.log(e.currentTarget);
+  const onEndDrag = useCallback(() => {
     document.removeEventListener("mousemove", onMouseMove);
     document.removeEventListener("mouseup", onEndDrag);
     document.documentElement.removeEventListener("mouseleave", onEndDrag);
