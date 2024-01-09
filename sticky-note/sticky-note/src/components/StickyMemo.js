@@ -44,7 +44,7 @@ function StickyNote({
   useEffect(() => {
     let resizeObserver = new ResizeObserver(onResize);
     resizeObserver.observe(noteRef.current);
-
+    console.log(note.x, note.y);
     return () => {
       onChangeContent.clear();
       onResize.clear();
@@ -54,11 +54,16 @@ function StickyNote({
   }, [onChangeContent, onResize]);
 
   return (
-    <Draggable>
+    <Draggable x={note.x + 1} y={note.y + 1}>
       <div
         ref={noteRef}
         className="memo-container"
-        style={{ width: `${note.width}px`, height: `${note.height}px` }}
+        style={{
+          width: `${note.width}px`,
+          height: `${note.height}px`,
+          // left: `${note.x}px`,
+          // top: `${note.y}px`,
+        }}
       >
         <Draggable.Handle onDrag={(e) => onDrag(e)}>
           <div className="menu">
@@ -71,7 +76,7 @@ function StickyNote({
         </Draggable.Handle>
         <textarea
           className="memo-text-area"
-          defaultValue=""
+          defaultValue={note.content}
           name="txt"
           placeholder="Enter memo here"
           onChange={onChangeContent}

@@ -1,4 +1,4 @@
-import { makeObservable, observable, action } from "mobx";
+import { makeObservable, observable, action, autorun } from "mobx";
 import { v1 as uuidv1 } from "uuid";
 class StickyNoteModel {
   id = uuidv1();
@@ -20,6 +20,8 @@ class StickyNoteModel {
 }
 
 export default class StickyNoteStore {
+  id = "stickyNoteStore";
+  localStorage = null;
   notes = [];
   constructor() {
     makeObservable(this, {
@@ -29,6 +31,12 @@ export default class StickyNoteStore {
       resizeNote: action,
       changeNotePos: action,
       deleteNote: action,
+    });
+    this.initLocalStorage();
+    autorun(() => {
+      if (this.localStorage) {
+        this.localStorage.setItem(this.id, JSON.stringify(this.notes));
+      }
     });
   }
 
@@ -56,5 +64,19 @@ export default class StickyNoteStore {
 
   deleteNote(id) {
     this.notes.splice(this.getNoteIndex(id), 1);
+  }
+
+  initLocalStorage() {
+    if (localStorage.getItem(this.id) === null) {
+      this.localStorage = localStorage;
+      this.localStorage.setItem(this.id, JSON.stringify(this.notes));
+    } else {
+      this.localStorage = window.localStorage;
+      this.storeLocalStorage();
+    }
+  }
+
+  storeLocalStorage() {
+    this.notes = JSON.parse(this.localStorage.getItem(this.id));
   }
 }
