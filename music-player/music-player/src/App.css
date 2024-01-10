@@ -1,38 +1,79 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.music-player-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  width: 360px;
+  padding: 20px;
+  border: 1px solid #000;
+  border-radius: 10px;
+  gap: 20px;
+}
+.music-player-wrapper p {
+  margin: 0;
+  padding: 0;
+}
+.music-player-wrapper .cover-image {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.music-player-wrapper .info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.music-player-wrapper .info .title {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+.music-player-wrapper .player-bar {
+  width: 100%;
+}
+.music-player-wrapper .player-bar .bar {
+  width: 100%;
+  height: 8px;
+  background-color: #bdbdbd;
+  border-radius: 10px;
+}
+.music-player-wrapper .player-bar .time {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4px;
+}
+.music-player-wrapper .player-tool {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.music-player-wrapper .player-tool .volume-box {
+  display: flex;
+  align-items: center;
+}
+.music-player-wrapper .player-tool .volume-box .volume-bar {
+  width: 50px;
+  height: 4px;
+  background-color: #bdbdbd;
+  border-radius: 10px;
+}
+.music-player-wrapper .player-tool .volume-box .bar {
+  width: 40%;
+  height: 4px;
+  border-radius: 10px;
+  background-color: #3aa236;
+  position: relative;
+}
+.music-player-wrapper .player-tool .volume-box .bar::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 8px;
+  height: 8px;
+  transform: translate(50%, -50%);
+  border-radius: 50%;
+  background-color: #3aa236;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+/*# sourceMappingURL=App.css.map */
