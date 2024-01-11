@@ -1,6 +1,7 @@
 import React from "react";
 import RepeatIcon from "@mui/icons-material/Repeat";
 import ShuffleIcon from "@mui/icons-material/Shuffle";
+import RepeatOneIcon from "@mui/icons-material/RepeatOne";
 import { ModeType } from "../reducers/MusicPlayerReducer";
 
 type PlayModeProps = {
@@ -13,8 +14,10 @@ const PlayMode = ({ mode, onClick }: PlayModeProps) => {
       return <RepeatIcon onClick={onClick} />;
     case "SHUFFLE":
       return <ShuffleIcon onClick={onClick} />;
+    case "ONE":
+      return <RepeatOneIcon onClick={onClick} />;
     default:
-      return <></>;
+      return <div>Something is Wrong</div>;
   }
 };
 

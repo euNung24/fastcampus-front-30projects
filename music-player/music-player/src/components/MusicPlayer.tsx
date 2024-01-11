@@ -34,6 +34,12 @@ const MusicPlayer = () => {
     }
   }, []);
 
+  const onResetPlay = useCallback(() => {
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0;
+    }
+  }, []);
+
   return (
     <section className="music-player-wrapper">
       <p>{musicPlayerState.playing ? "Now Playing" : "Not Playing"}</p>
@@ -42,6 +48,7 @@ const MusicPlayer = () => {
       />
       <MusicPlayBar
         ref={audioRef}
+        mode={musicPlayerState.mode}
         playing={musicPlayerState.playing}
         music={musicPlayerState.playList[musicPlayerState.currentIndex]}
         dispatch={dispatch}
@@ -53,6 +60,7 @@ const MusicPlayer = () => {
         dispatch={dispatch}
         onPlay={onPlay}
         onPause={onPause}
+        onResetPlay={onResetPlay}
         onChangeVolume={onChangeVolume}
       />
     </section>

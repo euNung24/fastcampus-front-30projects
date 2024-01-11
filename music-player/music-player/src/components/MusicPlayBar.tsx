@@ -9,6 +9,7 @@ import React, {
   useState,
 } from "react";
 import {
+  ModeType,
   Music,
   MusicPlayerAction,
   pauseMusic,
@@ -18,6 +19,7 @@ import {
 
 type MusicPlayBarProps = {
   music: Music;
+  mode: ModeType;
   playing: boolean;
   dispatch: Dispatch<MusicPlayerAction>;
   onSetVolume: () => void;
@@ -32,7 +34,7 @@ const covertSecToMinSec = (sec: number) => {
 };
 
 const MusicPlayBar = (
-  { music, playing, dispatch, onSetVolume }: MusicPlayBarProps,
+  { music, mode, playing, dispatch, onSetVolume }: MusicPlayBarProps,
   ref: ForwardedRef<HTMLAudioElement>,
 ) => {
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -84,8 +86,12 @@ const MusicPlayBar = (
   }, []);
 
   const onEnded = useCallback(() => {
+    if (mode === "ONE" && audioRef.current) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play();
+    }
     dispatch(playNextMusic(true));
-  }, [dispatch]);
+  }, [dispatch, mode]);
 
   return (
     <div className="player-bar">

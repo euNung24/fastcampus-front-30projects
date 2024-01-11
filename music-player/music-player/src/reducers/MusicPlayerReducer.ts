@@ -39,8 +39,8 @@ const playList: Music[] = [
   },
 ];
 
-const MODE = ["ALL", "SHUFFLE"];
-export type ModeType = "ALL" | "SHUFFLE";
+const MODE = ["ALL", "SHUFFLE", "ONE"];
+export type ModeType = "ALL" | "SHUFFLE" | "ONE";
 
 export type MusicPlayerState = {
   playing: boolean;
@@ -122,6 +122,10 @@ export default function reducer(
           nextIndex = getRandomModeIdx(currentIndex);
           break;
         }
+        default: {
+          nextIndex = currentIndex;
+          break;
+        }
       }
 
       return {
@@ -142,6 +146,10 @@ export default function reducer(
         }
         case "SHUFFLE": {
           prevIndex = getRandomModeIdx(currentIndex);
+          break;
+        }
+        default: {
+          prevIndex = currentIndex;
           break;
         }
       }

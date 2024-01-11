@@ -24,12 +24,20 @@ import PlayMode from "./PlayMode";
 type MusicToolbarProps = {
   onPlay: () => void;
   onPause: () => void;
+  onResetPlay: () => void;
   onChangeVolume: (volume: number) => void;
   state: MusicPlayerState;
   dispatch: Dispatch<MusicPlayerAction>;
 };
 const MusicToolbar = (
-  { onPlay, onPause, onChangeVolume, state, dispatch }: MusicToolbarProps,
+  {
+    onPlay,
+    onPause,
+    onResetPlay,
+    onChangeVolume,
+    state,
+    dispatch,
+  }: MusicToolbarProps,
   ref: ForwardedRef<any>,
 ) => {
   const { playing } = state;
@@ -70,12 +78,20 @@ const MusicToolbar = (
   }, []);
 
   const onClickPrev = useCallback(() => {
-    dispatch(playPrevMusic());
-  }, [dispatch]);
+    if (state.mode === "ONE") {
+      onResetPlay();
+    } else {
+      dispatch(playPrevMusic());
+    }
+  }, [dispatch, state.mode, onResetPlay]);
 
   const onClickNext = useCallback(() => {
-    dispatch(playNextMusic());
-  }, [dispatch]);
+    if (state.mode === "ONE") {
+      onResetPlay();
+    } else {
+      dispatch(playNextMusic());
+    }
+  }, [dispatch, state.mode, onResetPlay]);
 
   const onChangeMode = useCallback(() => {
     dispatch(changeMode());
