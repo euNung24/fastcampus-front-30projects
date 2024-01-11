@@ -5,12 +5,12 @@
 ### 가상 키보드
 🔗 [README](./virtual-keyboard/README.md)
 
-🔗 [Site](./virtual-keyboard/index.html)
+🔗 [Site](./virtual-keyboard/dist/index.html)
 
 ### 이미지 슬라이드
 🔗 [README](./image-slider/README.md)
 
-🔗 [Site](./image-slider/index.html)
+🔗 [Site](./image-slider/dist/index.html)
 
 ### date picker
 🔗 [README](./date-picker/README.md)
