@@ -30,12 +30,19 @@
 }
 .music-player-wrapper .player-bar {
   width: 100%;
+  position: relative;
 }
-.music-player-wrapper .player-bar .bar {
+.music-player-wrapper .player-bar .progress-bar {
   width: 100%;
   height: 8px;
   background-color: #bdbdbd;
   border-radius: 10px;
+  overflow: hidden;
+}
+.music-player-wrapper .player-bar .progress-bar .bar {
+  width: 0;
+  height: 8px;
+  background-color: #2575d2;
 }
 .music-player-wrapper .player-bar .time {
   display: flex;
