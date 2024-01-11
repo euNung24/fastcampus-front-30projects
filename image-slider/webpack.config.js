@@ -7,7 +7,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = (env) => {
   const isDevMode = env.mode === "development";
   const devServer= {
-    watchFiles: 'index.html',
+    watchFiles: './src/index.html',
     hot: true
   }
 
@@ -38,7 +38,7 @@ module.exports = (env) => {
     },
     plugins: [
       new HtmlWebpackPlugin({
-        template: "index.html",
+        template: "./src/index.html",
         inject: "body",
         favicon: "./favicon.png"
       }),

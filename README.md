@@ -3,31 +3,31 @@
 ## Basic
 
 ### 가상 키보드
-🔗 [README](./virtual-keyboard/README.md)
+🔗 [README](./virtual-keyboard)
 
 🔗 [Site](./virtual-keyboard/dist/index.html)
 
 ### 이미지 슬라이드
-🔗 [README](./image-slider/README.md)
+🔗 [README](./image-slider)
 
 🔗 [Site](./image-slider/dist/index.html)
 
 ### date picker
-🔗 [README](./date-picker/README.md)
+🔗 [README](./date-picker)
 
 🔗 [Site](./date-picker/build/index.html)
 
 ### 계산기
-🔗 [README](./calculator/README.md)
+🔗 [README](./calculator)
 
-🔗 [Site](./calculator/index.html)
+🔗 [Site](./calculator/src/index.html)
 
 ### bmi 계산
-🔗 [README](./bmi-calculator/README.md)
+🔗 [README](./bmi-calculator)
 
-🔗 [Site](./bmi-calculator/index.html)
+🔗 [Site](./bmi-calculator/src/index.html)
 
 ### 이미지 갤러리
-🔗 [README](./image-gallery/README.md)
+🔗 [README](./image-gallery)
 
 🔗 [Site](./image-gallery/build/index.html)
