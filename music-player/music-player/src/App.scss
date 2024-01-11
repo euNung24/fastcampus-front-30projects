@@ -7,6 +7,8 @@
   border: 1px solid #000;
   border-radius: 10px;
   gap: 20px;
+  position: relative;
+  overflow: hidden;
 
   p {
     margin: 0;
@@ -94,6 +96,60 @@
         }
       }
     }
+  }
+
+  .playlist {
+    height: 60%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    outline: 1px solid #bdbdbd;
+    border-radius: 10px;
+    background-color: #FFF;
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 48px;
+      padding: 16px 16px 8px;
+
+      div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+
+    ul {
+      margin: 0;
+      padding: 0 16px;
+      height: calc(100% - 52px);
+      list-style-type: none;
+      overflow: auto;
+
+      li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 0;
+        border-bottom: 1px solid #bdbdbd;
+      }
+
+      .info {
+        display: flex;
+        flex-direction: column;
+
+        .title {
+          font-size: 1rem;
+        }
+        .artist {
+          font-size: 0.9rem;
+        }
+      }
+    }
+
   }
 }
 

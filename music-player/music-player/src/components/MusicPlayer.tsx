@@ -3,6 +3,7 @@ import MusicInfo from "./MusicInfo";
 import MusicPlayBar from "./MusicPlayBar";
 import MusicToolbar from "./MusicToolbar";
 import reducer, { initMusicPlayerState } from "../reducers/MusicPlayerReducer";
+import PlayList from "./PlayList";
 
 const MusicPlayer = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -63,6 +64,7 @@ const MusicPlayer = () => {
         onResetPlay={onResetPlay}
         onChangeVolume={onChangeVolume}
       />
+      <PlayList />
     </section>
   );
 };
