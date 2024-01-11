@@ -61,6 +61,7 @@
 .music-player-wrapper .music-tool .volume-box .volume-bar {
   width: 50px;
   height: 4px;
+  margin-left: 4px;
   background-color: #bdbdbd;
   border-radius: 10px;
 }
@@ -78,7 +79,7 @@
   right: 0;
   width: 8px;
   height: 8px;
-  transform: translate(50%, -50%);
+  transform: translate(60%, -50%);
   border-radius: 50%;
   background-color: #3aa236;
 }

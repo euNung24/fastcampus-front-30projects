@@ -19,6 +19,12 @@ const MusicPlayer = () => {
     audioRef.current?.pause();
   }, []);
 
+  const onChangeVolume = useCallback((volume: number) => {
+    if (audioRef.current) {
+      audioRef.current.volume = volume;
+    }
+  }, []);
+
   return (
     <section className="music-player-wrapper">
       <p>{musicPlayerState.playing ? "Now Playing" : "Not Playing"}</p>
@@ -27,6 +33,7 @@ const MusicPlayer = () => {
       <MusicToolbar
         onPlay={onPlay}
         onPause={onPause}
+        onChangeVolume={onChangeVolume}
         state={musicPlayerState}
       />
     </section>
