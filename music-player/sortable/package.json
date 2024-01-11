@@ -1,11 +1,17 @@
 {
   "name": "@eunung/sortable-list",
-  "version": "1.0.1",
-  "main": "dist/SortableList.js",
+  "version": "1.0.3",
+  "main": "dist/index.js",
   "email": "pandamon24@gmail.com",
   "files": [
     "dist/**"
   ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -25,7 +31,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "publish": "rm -rf dist && mkdir dist && babel src/lib -d dist --copy-files"
+    "tsc": "tsc",
+    "prepare": "rm -rf dist && mkdir dist && tsc"
   },
   "babel": {
     "presets": [
@@ -53,5 +60,8 @@
   "devDependencies": {
     "@babel/cli": "^7.23.4",
     "@babel/preset-react": "^7.23.3"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0"
   }
 }
