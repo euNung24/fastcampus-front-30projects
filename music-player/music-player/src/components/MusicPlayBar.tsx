@@ -83,7 +83,7 @@ const MusicPlayBar = (
   };
 
   const onEnded = () => {
-    dispatch(playNextMusic());
+    dispatch(playNextMusic(true));
   };
 
   return (

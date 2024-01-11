@@ -62,8 +62,9 @@ export const playMusic = () => ({
 export const pauseMusic = () => ({
   type: PAUSE_MUSIC,
 });
-export const playNextMusic = () => ({
+export const playNextMusic = (isEnded: boolean = false) => ({
   type: PLAY_NEXT_MUSIC,
+  payload: { isEnded },
 });
 export const playPrevMusic = () => ({
   type: PLAY_PREV_MUSIC,
@@ -88,6 +89,7 @@ export default function reducer(state = initMusicPlayerState, action: any) {
 
       return {
         ...state,
+        playing: state.playing || action.payload.isEnded,
         currentIndex: nextIndex,
       };
     }
