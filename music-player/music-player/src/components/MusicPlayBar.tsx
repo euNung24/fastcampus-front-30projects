@@ -8,12 +8,18 @@ import React, {
   useRef,
   useState,
 } from "react";
-// @ts-ignore
-import music from "../musics/good-night.mp3";
-import { pauseMusic, playMusic } from "../reducers/MusicPlayerReducer";
+import {
+  Music,
+  pauseMusic,
+  playMusic,
+  playNextMusic,
+} from "../reducers/MusicPlayerReducer";
 
 type MusicPlayBarProps = {
+  music: Music;
+  playing: boolean;
   dispatch: Dispatch<any>;
+  onSetVolume: () => void;
 };
 
 const covertSecToMinSec = (sec: number) => {
@@ -25,7 +31,7 @@ const covertSecToMinSec = (sec: number) => {
 };
 
 const MusicPlayBar = (
-  { dispatch }: MusicPlayBarProps,
+  { music, playing, dispatch, onSetVolume }: MusicPlayBarProps,
   ref: ForwardedRef<HTMLAudioElement>,
 ) => {
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -54,10 +60,18 @@ const MusicPlayBar = (
     }
   }, []);
 
-  const onLoadedData = (e: SyntheticEvent<HTMLAudioElement>) => {
-    setDuration(covertSecToMinSec(e.currentTarget.duration));
-  };
-
+  const onLoadedData = useCallback(
+    (e: SyntheticEvent<HTMLAudioElement>) => {
+      setDuration(covertSecToMinSec(e.currentTarget.duration));
+      playing ? audioRef.current?.play() : audioRef.current?.pause();
+      setCurrentTime("00:00");
+      if (barRef.current) {
+        barRef.current.style.width = `0%`;
+      }
+      onSetVolume();
+    },
+    [playing, onSetVolume],
+  );
   const onClickBar = (e: React.MouseEvent<HTMLDivElement>) => {
     if (audioRef.current && barRef.current) {
       const clickedPosition = e.nativeEvent.offsetX;
@@ -68,17 +82,22 @@ const MusicPlayBar = (
     }
   };
 
+  const onEnded = () => {
+    dispatch(playNextMusic());
+  };
+
   return (
     <div className="player-bar">
       <div className="progress-bar" onClick={onClickBar}>
         <div className="bar" ref={barRef}></div>
         <audio
-          src={music}
+          src={music.music}
           ref={audioRef}
           onPlay={onPlay}
           onPause={onPause}
           onTimeUpdate={onTimeUpdate}
           onLoadedData={onLoadedData}
+          onEnded={onEnded}
         />
       </div>
       <div className="time">

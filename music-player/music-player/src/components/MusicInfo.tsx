@@ -1,12 +1,18 @@
 import React from "react";
-import image from "../images/image1.png";
-const MusicInfo = () => {
+import { Music } from "../reducers/MusicPlayerReducer";
+
+type MusicInfoProps = {
+  music: Music;
+};
+const MusicInfo = ({ music }: MusicInfoProps) => {
+  const { title, artist, cover } = music;
+
   return (
     <>
-      <img className="cover-image" src={image} alt="" />
+      <img className="cover-image" src={cover} alt={title} />
       <div className="info">
-        <span className="title">음악제목</span>
-        <span>아티스트</span>
+        <span className="title">{title}</span>
+        <span>{artist}</span>
       </div>
     </>
   );

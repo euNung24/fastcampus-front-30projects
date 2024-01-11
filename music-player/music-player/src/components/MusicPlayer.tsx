@@ -6,6 +6,7 @@ import reducer, { initMusicPlayerState } from "../reducers/MusicPlayerReducer";
 
 const MusicPlayer = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
+  const volumeRef = useRef<HTMLDivElement>(null);
   const [musicPlayerState, dispatch] = useReducer(
     reducer,
     initMusicPlayerState,
@@ -25,16 +26,34 @@ const MusicPlayer = () => {
     }
   }, []);
 
+  const onSetVolume = useCallback(() => {
+    if (volumeRef.current && audioRef.current) {
+      audioRef.current.volume =
+        volumeRef.current.clientWidth /
+        volumeRef.current.parentElement!.clientWidth;
+    }
+  }, []);
+
   return (
     <section className="music-player-wrapper">
       <p>{musicPlayerState.playing ? "Now Playing" : "Not Playing"}</p>
-      <MusicInfo />
-      <MusicPlayBar ref={audioRef} dispatch={dispatch} />
+      <MusicInfo
+        music={musicPlayerState.playList[musicPlayerState.currentIndex]}
+      />
+      <MusicPlayBar
+        ref={audioRef}
+        playing={musicPlayerState.playing}
+        music={musicPlayerState.playList[musicPlayerState.currentIndex]}
+        dispatch={dispatch}
+        onSetVolume={onSetVolume}
+      />
       <MusicToolbar
+        ref={volumeRef}
+        state={musicPlayerState}
+        dispatch={dispatch}
         onPlay={onPlay}
         onPause={onPause}
         onChangeVolume={onChangeVolume}
-        state={musicPlayerState}
       />
     </section>
   );
