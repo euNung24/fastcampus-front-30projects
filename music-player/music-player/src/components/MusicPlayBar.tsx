@@ -10,6 +10,7 @@ import React, {
 } from "react";
 import {
   Music,
+  MusicPlayerAction,
   pauseMusic,
   playMusic,
   playNextMusic,
@@ -18,7 +19,7 @@ import {
 type MusicPlayBarProps = {
   music: Music;
   playing: boolean;
-  dispatch: Dispatch<any>;
+  dispatch: Dispatch<MusicPlayerAction>;
   onSetVolume: () => void;
 };
 

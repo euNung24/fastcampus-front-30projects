@@ -7,24 +7,26 @@ import React, {
   useRef,
 } from "react";
 import QueueMusicIcon from "@mui/icons-material/QueueMusic";
-import RepeatIcon from "@mui/icons-material/Repeat";
 import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
 import PauseIcon from "@mui/icons-material/Pause";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import SkipNextIcon from "@mui/icons-material/SkipNext";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 import {
+  changeMode,
+  MusicPlayerAction,
   MusicPlayerState,
   playNextMusic,
   playPrevMusic,
 } from "../reducers/MusicPlayerReducer";
+import PlayMode from "./PlayMode";
 
 type MusicToolbarProps = {
   onPlay: () => void;
   onPause: () => void;
   onChangeVolume: (volume: number) => void;
   state: MusicPlayerState;
-  dispatch: Dispatch<any>;
+  dispatch: Dispatch<MusicPlayerAction>;
 };
 const MusicToolbar = (
   { onPlay, onPause, onChangeVolume, state, dispatch }: MusicToolbarProps,
@@ -75,10 +77,14 @@ const MusicToolbar = (
     dispatch(playNextMusic());
   }, [dispatch]);
 
+  const onChangeMode = useCallback(() => {
+    dispatch(changeMode());
+  }, [dispatch]);
+
   return (
     <div className="music-tool">
       <QueueMusicIcon />
-      <RepeatIcon />
+      <PlayMode mode={state.mode} onClick={onChangeMode} />
       <SkipPreviousIcon onClick={onClickPrev} />
       {playing ? (
         <PauseIcon onClick={onPause} />

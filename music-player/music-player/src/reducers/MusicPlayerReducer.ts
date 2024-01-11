@@ -39,22 +39,28 @@ const playList: Music[] = [
   },
 ];
 
+const MODE = ["ALL", "SHUFFLE"];
+export type ModeType = "ALL" | "SHUFFLE";
+
 export type MusicPlayerState = {
   playing: boolean;
   playList: Music[];
   currentIndex: number;
+  mode: ModeType;
 };
 
 export const initMusicPlayerState: MusicPlayerState = {
   playing: false,
   playList,
   currentIndex: 0,
+  mode: "ALL",
 };
 
 const PLAY_MUSIC = "musicPlayer/PLAY_MUSIC" as const;
 const PAUSE_MUSIC = "musicPlayer/PAUSE_MUSIC" as const;
 const PLAY_NEXT_MUSIC = "musicPlayer/PLAY_NEXT_MUSIC" as const;
 const PLAY_PREV_MUSIC = "musicPlayer/PLAY_PREV_MUSIC" as const;
+const CHANGE_MODE = "musicPlayer/CHANGE_MODE" as const;
 
 export const playMusic = () => ({
   type: PLAY_MUSIC,
@@ -70,7 +76,27 @@ export const playPrevMusic = () => ({
   type: PLAY_PREV_MUSIC,
 });
 
-export default function reducer(state = initMusicPlayerState, action: any) {
+export const changeMode = () => ({
+  type: CHANGE_MODE,
+});
+
+export type MusicPlayerAction =
+  | ReturnType<typeof playMusic>
+  | ReturnType<typeof pauseMusic>
+  | ReturnType<typeof playNextMusic>
+  | ReturnType<typeof playPrevMusic>
+  | ReturnType<typeof changeMode>;
+
+const getRandomModeIdx = (crtIdx: number): number => {
+  const randomIdx = Math.trunc(Math.random() * playList.length);
+
+  return randomIdx === crtIdx ? getRandomModeIdx(crtIdx) : randomIdx;
+};
+
+export default function reducer(
+  state = initMusicPlayerState,
+  action: MusicPlayerAction,
+) {
   switch (action.type) {
     case PLAY_MUSIC: {
       return {
@@ -85,7 +111,18 @@ export default function reducer(state = initMusicPlayerState, action: any) {
       };
     }
     case PLAY_NEXT_MUSIC: {
-      const nextIndex = (state.currentIndex + 1) % state.playList.length;
+      const { mode, currentIndex } = state;
+      let nextIndex;
+      switch (mode) {
+        case "ALL": {
+          nextIndex = (state.currentIndex + 1) % state.playList.length;
+          break;
+        }
+        case "SHUFFLE": {
+          nextIndex = getRandomModeIdx(currentIndex);
+          break;
+        }
+      }
 
       return {
         ...state,
@@ -94,13 +131,32 @@ export default function reducer(state = initMusicPlayerState, action: any) {
       };
     }
     case PLAY_PREV_MUSIC: {
-      const prevIndex =
-        (state.currentIndex - 1 + state.playList.length) %
-        state.playList.length;
+      const { mode, currentIndex } = state;
+      let prevIndex;
+      switch (mode) {
+        case "ALL": {
+          prevIndex =
+            (state.currentIndex - 1 + state.playList.length) %
+            state.playList.length;
+          break;
+        }
+        case "SHUFFLE": {
+          prevIndex = getRandomModeIdx(currentIndex);
+          break;
+        }
+      }
 
       return {
         ...state,
         currentIndex: prevIndex,
+      };
+    }
+    case CHANGE_MODE: {
+      const currentModeIdx = MODE.findIndex((v) => v === state.mode);
+      const nextModeIdx = (currentModeIdx + 1) % MODE.length;
+      return {
+        ...state,
+        mode: MODE[nextModeIdx] as ModeType,
       };
     }
     default:
