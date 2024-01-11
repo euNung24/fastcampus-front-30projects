@@ -5,6 +5,7 @@ interface SortableProps {
   draggable: boolean;
   handleDragStart: (idx: number) => void;
   handleDrop: (idx: number) => void;
+  handleClick?: (e?: React.MouseEvent) => void;
   children?: ReactNode;
 }
 
@@ -13,6 +14,7 @@ const Sortable = ({
   draggable,
   handleDragStart,
   handleDrop,
+  handleClick = () => {},
   children,
 }: SortableProps) => {
   const onDragStart = (e: React.DragEvent<HTMLLIElement>) => {
@@ -38,10 +40,15 @@ const Sortable = ({
     handleDrop(index);
   };
 
+  const onClick = (e: React.MouseEvent) => {
+    handleClick(e);
+  };
+
   return (
     <li
       className="item"
       draggable={draggable}
+      onClick={onClick}
       onDragStart={onDragStart}
       onDragEnd={onDragEnd}
       onDragEnter={onDragEnter}

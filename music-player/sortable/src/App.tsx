@@ -33,6 +33,9 @@ function App() {
   return (
     <SortableList
       list={test}
+      onClick={(e) => {
+        console.log(e?.currentTarget);
+      }}
       keyAttr="id"
       renderItemContent={(id, list) => <Content item={list} idx={id} />}
     />

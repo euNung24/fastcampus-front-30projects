@@ -5,10 +5,12 @@ const SortableList = ({
   renderItemContent,
   list,
   keyAttr,
+  onClick = () => {},
 }: {
   renderItemContent: (id: number, item: any) => ReactNode;
   list: any[];
   keyAttr?: string;
+  onClick?: (e?: React.MouseEvent) => void;
 }) => {
   const [itemList, setItemList] = useState(list);
   const startIdxRef = useRef(0);
@@ -39,6 +41,7 @@ const SortableList = ({
           index={idx}
           handleDragStart={handleDragStart}
           handleDrop={handleDrop}
+          handleClick={onClick}
         >
           {renderItemContent(idx, v)}
         </Sortable>
