@@ -73,7 +73,7 @@ const MusicPlayBar = (
     },
     [playing, onSetVolume],
   );
-  const onClickBar = (e: React.MouseEvent<HTMLDivElement>) => {
+  const onClickBar = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (audioRef.current && barRef.current) {
       const clickedPosition = e.nativeEvent.offsetX;
       barRef.current.style.width = `${clickedPosition}px`;
@@ -81,11 +81,11 @@ const MusicPlayBar = (
         (e.nativeEvent.offsetX / e.currentTarget.clientWidth) *
         audioRef.current.duration;
     }
-  };
+  }, []);
 
-  const onEnded = () => {
+  const onEnded = useCallback(() => {
     dispatch(playNextMusic(true));
-  };
+  }, [dispatch]);
 
   return (
     <div className="player-bar">
