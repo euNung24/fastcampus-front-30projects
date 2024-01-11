@@ -8,7 +8,7 @@ module.exports = (env) => {
   const isDevMode = env.mode === "development";
   const devServer = {
     static: { directory: path.join(__dirname, "dist") },
-    watchFiles: "./index.html",
+    watchFiles: "./src/index.html",
   };
 
   return {
@@ -42,7 +42,7 @@ module.exports = (env) => {
     },
     plugins: [
       new HtmlWebpackPlugin({
-        template: "./index.html",
+        template: "./src/index.html",
         inject: "body",
         favicon: "./favicon.png",
       }),
