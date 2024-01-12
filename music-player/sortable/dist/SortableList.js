@@ -23,8 +23,8 @@ import { useRef, useState } from "react";
 import Sortable from "./Sortable";
 import "./sortable.css";
 var SortableList = function (_a) {
-    var renderItemContent = _a.renderItemContent, list = _a.list, keyAttr = _a.keyAttr, _b = _a.onClick, onClick = _b === void 0 ? function () { } : _b;
-    var _c = useState(list), itemList = _c[0], setItemList = _c[1];
+    var renderItemContent = _a.renderItemContent, list = _a.list, keyAttr = _a.keyAttr, _b = _a.onDropItem, onDropItem = _b === void 0 ? function () { } : _b, _c = _a.onClick, onClick = _c === void 0 ? function () { } : _c;
+    var _d = useState(list), itemList = _d[0], setItemList = _d[1];
     var startIdxRef = useRef(0);
     var handleDragStart = function (idx) {
         startIdxRef.current = idx;
@@ -41,6 +41,7 @@ var SortableList = function (_a) {
             newList.splice(dropIdx, 0, targetItem);
         }
         setItemList(newList);
+        onDropItem(newList);
     };
     return (_jsxs("ul", __assign({ className: "sortable-list" }, { children: [itemList.map(function (v, idx) { return (_jsx(Sortable, __assign({ draggable: true, index: idx, handleDragStart: handleDragStart, handleDrop: handleDrop, handleClick: function (e) {
                     onClick(e, v, { index: idx });

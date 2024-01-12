@@ -33,6 +33,9 @@ function App() {
   return (
     <SortableList
       list={test}
+      onDropItem={(list) => {
+        console.log(list);
+      }}
       onClick={(...args) => {
         console.log(...args);
       }}

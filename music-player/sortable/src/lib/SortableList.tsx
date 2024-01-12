@@ -5,11 +5,13 @@ const SortableList = ({
   renderItemContent,
   list,
   keyAttr,
+  onDropItem = () => {},
   onClick = () => {},
 }: {
   renderItemContent: (id: number, item: any) => ReactNode;
   list: any[];
   keyAttr?: string;
+  onDropItem?: (list: any[]) => void;
   onClick?: (...args: any) => void;
 }) => {
   const [itemList, setItemList] = useState(list);
@@ -30,6 +32,7 @@ const SortableList = ({
       newList.splice(dropIdx, 0, targetItem);
     }
     setItemList(newList);
+    onDropItem(newList);
   };
 
   return (
