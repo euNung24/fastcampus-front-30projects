@@ -2,6 +2,7 @@ import React, {
   Dispatch,
   ForwardedRef,
   forwardRef,
+  memo,
   SyntheticEvent,
   useCallback,
   useImperativeHandle,
@@ -115,4 +116,4 @@ const MusicPlayBar = (
   );
 };
 
-export default forwardRef(MusicPlayBar);
+export default memo(forwardRef(MusicPlayBar));

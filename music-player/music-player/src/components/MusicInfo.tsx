@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Music } from "../reducers/MusicPlayerReducer";
 
 type MusicInfoProps = {
@@ -18,4 +18,4 @@ const MusicInfo = ({ music }: MusicInfoProps) => {
   );
 };
 
-export default MusicInfo;
+export default memo(MusicInfo);

@@ -2,6 +2,7 @@ import React, {
   Dispatch,
   ForwardedRef,
   forwardRef,
+  memo,
   SetStateAction,
   useCallback,
   useImperativeHandle,
@@ -131,4 +132,4 @@ const MusicToolbar = (
   );
 };
 
-export default forwardRef(MusicToolbar);
+export default memo(forwardRef(MusicToolbar));

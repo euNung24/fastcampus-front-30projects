@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useCallback } from "react";
+import React, { Dispatch, memo, SetStateAction, useCallback } from "react";
 import QueueMusicIcon from "@mui/icons-material/QueueMusic";
 import ClearIcon from "@mui/icons-material/Clear";
 import {
@@ -59,4 +59,4 @@ const PlayList = ({
   );
 };
 
-export default PlayList;
+export default memo(PlayList);

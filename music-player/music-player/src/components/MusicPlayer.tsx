@@ -1,4 +1,4 @@
-import React, { useCallback, useReducer, useRef, useState } from "react";
+import React, { memo, useCallback, useReducer, useRef, useState } from "react";
 import MusicInfo from "./MusicInfo";
 import MusicPlayBar from "./MusicPlayBar";
 import MusicToolbar from "./MusicToolbar";
@@ -78,4 +78,4 @@ const MusicPlayer = () => {
   );
 };
 
-export default MusicPlayer;
+export default memo(MusicPlayer);
