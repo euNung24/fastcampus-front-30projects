@@ -26,11 +26,11 @@ const PlayListItem = ({ id, item, music }: PlayListItemProps) => {
   const [duration, setDuration] = useState("00:00");
 
   useEffect(() => {
-    getMusicDuration(item.music).then((durationTime) => {
+    getMusicDuration(item.src).then((durationTime) => {
       setDuration(durationTime);
     });
     return () => {};
-  }, [item.music]);
+  }, [item.src]);
 
   return (
     <div

@@ -1,41 +1,49 @@
+import { v4 as uuid } from "uuid";
+
 export type Music = {
+  id: string;
   artist: string;
   title: string;
   cover: string;
-  music: string;
+  src: string;
 };
 
 const playList: Music[] = [
   {
+    id: uuid(),
     artist: "FASSounds",
     title: "Good Night",
     cover: "/images/image1.png",
-    music: "/musics/good-night.mp3",
+    src: "/musics/good-night.mp3",
   },
   {
+    id: uuid(),
     artist: "BoDleasons",
     title: "Lofi Chill (Medium Version)",
     cover: "/images/image2.png",
-    music: "/musics/lofi-chill-medium-version.mp3",
+    src: "/musics/lofi-chill-medium-version.mp3",
   },
   {
+    id: uuid(),
     artist: "SoulProdMusic",
     title: "Smoke",
     cover: "/images/image3.png",
-    music: "/musics/smoke.mp3",
+    src: "/musics/smoke.mp3",
   },
   {
+    id: uuid(),
     artist: "Top-Flow-Production",
     title: "Sunshine Jaunt",
     cover: "/images/image4.png",
-    music: "/musics/sunshine-jaunt.mp3",
+    src: "/musics/sunshine-jaunt.mp3",
   },
 
   {
+    id: uuid(),
     artist: "AlisiaBeats",
     title: "Titanium",
     cover: "/images/image5.png",
-    music: "/musics/titanium.mp3",
+    src: "/musics/titanium.mp3",
   },
 ];
 
@@ -62,6 +70,7 @@ const PLAY_NEXT_MUSIC = "musicPlayer/PLAY_NEXT_MUSIC" as const;
 const PLAY_PREV_MUSIC = "musicPlayer/PLAY_PREV_MUSIC" as const;
 const CHANGE_MODE = "musicPlayer/CHANGE_MODE" as const;
 const SELECT_MUSIC = "musicPlayer/SELECT_MUSIC" as const;
+const SORT_PLAYLIST = "musicPlayer/SORT_PLAYLIST" as const;
 
 export const playMusic = () => ({
   type: PLAY_MUSIC,
@@ -83,6 +92,10 @@ export const selectMusic = (index: number) => ({
   type: SELECT_MUSIC,
   payload: { index },
 });
+export const sortPlayList = (playList: Music[]) => ({
+  type: SORT_PLAYLIST,
+  payload: { playList },
+});
 
 export type MusicPlayerAction =
   | ReturnType<typeof playMusic>
@@ -90,7 +103,8 @@ export type MusicPlayerAction =
   | ReturnType<typeof playNextMusic>
   | ReturnType<typeof playPrevMusic>
   | ReturnType<typeof changeMode>
-  | ReturnType<typeof selectMusic>;
+  | ReturnType<typeof selectMusic>
+  | ReturnType<typeof sortPlayList>;
 
 const getRandomModeIdx = (crtIdx: number): number => {
   const randomIdx = Math.trunc(Math.random() * playList.length);
@@ -176,6 +190,16 @@ export default function reducer(
       return {
         ...state,
         currentIndex: action.payload.index,
+      };
+    }
+    case SORT_PLAYLIST: {
+      const newPlayList = action.payload.playList;
+      return {
+        ...state,
+        playList: newPlayList,
+        currentIndex: newPlayList.findIndex(
+          (music) => music.id === state.playList[state.currentIndex].id,
+        ),
       };
     }
     default:

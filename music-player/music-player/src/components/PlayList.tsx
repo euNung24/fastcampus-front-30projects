@@ -6,6 +6,7 @@ import {
   MusicPlayerAction,
   // MusicPlayerState,
   selectMusic,
+  sortPlayList,
 } from "../reducers/MusicPlayerReducer";
 import Sortable from "@eunung/sortable-list";
 import PlayListItem from "./PlayListItem";
@@ -49,6 +50,9 @@ const PlayList = ({
         )}
         onClick={(e, item, { index }) => {
           dispatch(selectMusic(index));
+        }}
+        onDropItem={(playList) => {
+          dispatch(sortPlayList(playList));
         }}
       />
     </div>

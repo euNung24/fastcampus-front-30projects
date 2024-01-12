@@ -98,7 +98,7 @@ const MusicPlayBar = (
       <div className="progress-bar" onClick={onClickBar}>
         <div className="bar" ref={barRef}></div>
         <audio
-          src={music.music}
+          src={music.src}
           ref={audioRef}
           onPlay={onPlay}
           onPause={onPause}
