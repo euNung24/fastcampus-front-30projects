@@ -147,4 +147,6 @@ class TodoList {
   }
 }
 
-new TodoList();
+window.addEventListener("DOMContentLoaded", () => {
+  new TodoList();
+});
