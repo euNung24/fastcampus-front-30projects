@@ -42,6 +42,8 @@ var SortableList = function (_a) {
         }
         setItemList(newList);
     };
-    return (_jsxs("ul", __assign({ className: "sortable-list" }, { children: [itemList.map(function (v, idx) { return (_jsx(Sortable, __assign({ draggable: true, index: idx, handleDragStart: handleDragStart, handleDrop: handleDrop, handleClick: onClick }, { children: renderItemContent(idx, v) }), keyAttr ? v[keyAttr] : idx)); }), _jsx(Sortable, { draggable: false, index: itemList.length, handleDragStart: handleDragStart, handleDrop: handleDrop })] })));
+    return (_jsxs("ul", __assign({ className: "sortable-list" }, { children: [itemList.map(function (v, idx) { return (_jsx(Sortable, __assign({ draggable: true, index: idx, handleDragStart: handleDragStart, handleDrop: handleDrop, handleClick: function (e) {
+                    onClick(e, v, { index: idx });
+                } }, { children: renderItemContent(idx, v) }), keyAttr ? v[keyAttr] : idx)); }), _jsx(Sortable, { draggable: false, index: itemList.length, handleDragStart: handleDragStart, handleDrop: handleDrop })] })));
 };
 export default SortableList;

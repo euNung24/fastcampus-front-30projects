@@ -5,7 +5,7 @@ interface SortableProps {
   draggable: boolean;
   handleDragStart: (idx: number) => void;
   handleDrop: (idx: number) => void;
-  handleClick?: (e?: React.MouseEvent) => void;
+  handleClick?: (...args: any) => void;
   children?: ReactNode;
 }
 
