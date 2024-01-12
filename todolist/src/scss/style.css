@@ -58,6 +58,15 @@ header {
   list-style: none;
   width: 600px;
 }
+.todo-container .todo-list.todo .done {
+  display: none;
+}
+.todo-container .todo-list.done .todo {
+  display: none;
+}
+.todo-container .todo-list.done .todo.done {
+  display: flex;
+}
 .todo-container .todo-list .todo {
   margin: 0.5rem;
   background: white;

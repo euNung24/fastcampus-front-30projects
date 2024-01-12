@@ -4,6 +4,7 @@ import "../scss/style.scss";
 interface FormElements extends HTMLFormElement {
   content: HTMLInputElement;
 }
+type Filter = "ALL" | "TODO" | "DONE";
 
 class TodoList {
   wrapperEl: HTMLDivElement;
@@ -11,7 +12,9 @@ class TodoList {
   inputEl: HTMLInputElement;
   addBtnEl: HTMLButtonElement;
   todoContainerEl: HTMLDivElement;
-  todoListEl: HTMLDivElement;
+  todolistEl: HTMLDivElement;
+  radioAreaEl: HTMLDivElement;
+  filterRadioEls: NodeListOf<HTMLInputElement>;
 
   constructor() {
     this.setElements();
@@ -24,12 +27,41 @@ class TodoList {
     this.inputEl = this.inputFormEl.querySelector("#todo-input");
     this.addBtnEl = this.inputFormEl.querySelector("#add-btn");
     this.todoContainerEl = document.querySelector("#todo-container");
-    this.todoListEl = this.todoContainerEl.querySelector("#todo-list");
+    this.todolistEl = this.todoContainerEl.querySelector("#todo-list");
+    this.radioAreaEl = document.querySelector("#radio-area");
+    this.filterRadioEls = this.radioAreaEl.querySelectorAll("input");
   }
 
   setEvents() {
     this.inputFormEl.addEventListener("submit", this.onAddTodo.bind(this));
-    this.todoListEl.addEventListener("click", this.onClickTodoList.bind(this));
+    this.todolistEl.addEventListener("click", this.onClickTodoList.bind(this));
+    this.eventFilterTodo();
+  }
+
+  eventFilterTodo() {
+    for (let idx = 0; idx < this.filterRadioEls.length; idx++) {
+      this.filterRadioEls[idx].addEventListener("click", (e) => {
+        const { value } = e.target as HTMLInputElement;
+        this.filterTodo(value as Filter);
+      });
+    }
+  }
+
+  filterTodo(status: Filter) {
+    switch (status) {
+      case "TODO":
+        this.todolistEl.classList.add("todo");
+        this.todolistEl.classList.remove("done");
+        break;
+      case "DONE":
+        this.todolistEl.classList.remove("todo");
+        this.todolistEl.classList.add("done");
+        break;
+      default:
+        this.todolistEl.classList.remove("todo");
+        this.todolistEl.classList.remove("done");
+        break;
+    }
   }
 
   onClickTodoList(e: Event) {
@@ -99,7 +131,7 @@ class TodoList {
     wrapperEl.appendChild(this.createBtnEl("delete", ["fas", "fa-trash"]));
     wrapperEl.appendChild(this.createBtnEl("save", ["fas", "fa-save"]));
     fragment.appendChild(wrapperEl);
-    this.todoListEl.appendChild(fragment);
+    this.todolistEl.appendChild(fragment);
   }
 
   createBtnEl(type: "delete" | "edit" | "save" | "complete", iClass: string[]) {

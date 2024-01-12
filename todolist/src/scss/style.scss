@@ -61,6 +61,21 @@ header {
     list-style: none;
     width: 600px;
 
+    &.todo {
+      .done {
+        display: none;
+      }
+    }
+
+    &.done {
+      .todo {
+        display: none;
+        &.done {
+          display: flex;
+        }
+      }
+    }
+
     .todo {
       margin: 0.5rem;
       background: white;
