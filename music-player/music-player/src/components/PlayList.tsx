@@ -1,7 +1,31 @@
-import React from "react";
+import React, { Dispatch, SetStateAction, useCallback } from "react";
 import QueueMusicIcon from "@mui/icons-material/QueueMusic";
 import ClearIcon from "@mui/icons-material/Clear";
-const PlayList = () => {
+import {
+  Music,
+  MusicPlayerAction,
+  // MusicPlayerState,
+  selectMusic,
+} from "../reducers/MusicPlayerReducer";
+import Sortable from "@eunung/sortable-list";
+import PlayListItem from "./PlayListItem";
+
+type PlayListProps = {
+  playList: Music[];
+  music: Music;
+  setShowPlayList: Dispatch<SetStateAction<boolean>>;
+  dispatch: Dispatch<MusicPlayerAction>;
+};
+const PlayList = ({
+  playList,
+  music,
+  setShowPlayList,
+  dispatch,
+}: PlayListProps) => {
+  const onClickPlayList = useCallback(() => {
+    setShowPlayList(false);
+  }, [setShowPlayList]);
+
   return (
     <div className="playlist">
       <div className="header">
@@ -15,73 +39,18 @@ const PlayList = () => {
             Playlist
           </span>
         </div>
-        <ClearIcon />
+        <ClearIcon onClick={onClickPlayList} />
       </div>
-      <ul>
-        <li>
-          <div className="info">
-            <span className="title">Title</span>
-            <span className="artist">Artist</span>
-          </div>
-          <time>00:00</time>
-        </li>
-        <li>
-          <div className="info">
-            <span className="title">Title</span>
-            <span className="artist">Artist</span>
-          </div>
-          <time>00:00</time>
-        </li>
-        <li>
-          <div className="info">
-            <span className="title">Title</span>
-            <span className="artist">Artist</span>
-          </div>
-          <time>00:00</time>
-        </li>
-        <li>
-          <div className="info">
-            <span className="title">Title</span>
-            <span className="artist">Artist</span>
-          </div>
-          <time>00:00</time>
-        </li>
-        <li>
-          <div className="info">
-            <span className="title">Title</span>
-            <span className="artist">Artist</span>
-          </div>
-          <time>00:00</time>
-        </li>
-        <li>
-          <div className="info">
-            <span className="title">Title</span>
-            <span className="artist">Artist</span>
-          </div>
-          <time>00:00</time>
-        </li>
-        <li>
-          <div className="info">
-            <span className="title">Title</span>
-            <span className="artist">Artist</span>
-          </div>
-          <time>00:00</time>
-        </li>
-        <li>
-          <div className="info">
-            <span className="title">Title</span>
-            <span className="artist">Artist</span>
-          </div>
-          <time>00:00</time>
-        </li>
-        <li>
-          <div className="info">
-            <span className="title">Title</span>
-            <span className="artist">Artist</span>
-          </div>
-          <time>00:00</time>
-        </li>
-      </ul>
+      <Sortable
+        list={playList}
+        keyAttr={"title"}
+        renderItemContent={(id, item) => (
+          <PlayListItem id={id} item={item} music={music} />
+        )}
+        onClick={(e, item, { index }) => {
+          dispatch(selectMusic(index));
+        }}
+      />
     </div>
   );
 };

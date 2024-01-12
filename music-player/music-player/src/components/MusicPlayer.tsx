@@ -1,4 +1,4 @@
-import React, { useCallback, useReducer, useRef } from "react";
+import React, { useCallback, useReducer, useRef, useState } from "react";
 import MusicInfo from "./MusicInfo";
 import MusicPlayBar from "./MusicPlayBar";
 import MusicToolbar from "./MusicToolbar";
@@ -8,6 +8,7 @@ import PlayList from "./PlayList";
 const MusicPlayer = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const volumeRef = useRef<HTMLDivElement>(null);
+  const [showPlayList, setShowPlayList] = useState(false);
   const [musicPlayerState, dispatch] = useReducer(
     reducer,
     initMusicPlayerState,
@@ -63,8 +64,16 @@ const MusicPlayer = () => {
         onPause={onPause}
         onResetPlay={onResetPlay}
         onChangeVolume={onChangeVolume}
+        setShowPlayList={setShowPlayList}
       />
-      <PlayList />
+      {showPlayList && (
+        <PlayList
+          dispatch={dispatch}
+          music={musicPlayerState.playList[musicPlayerState.currentIndex]}
+          playList={musicPlayerState.playList}
+          setShowPlayList={setShowPlayList}
+        />
+      )}
     </section>
   );
 };

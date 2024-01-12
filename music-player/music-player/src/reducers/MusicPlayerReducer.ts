@@ -61,6 +61,7 @@ const PAUSE_MUSIC = "musicPlayer/PAUSE_MUSIC" as const;
 const PLAY_NEXT_MUSIC = "musicPlayer/PLAY_NEXT_MUSIC" as const;
 const PLAY_PREV_MUSIC = "musicPlayer/PLAY_PREV_MUSIC" as const;
 const CHANGE_MODE = "musicPlayer/CHANGE_MODE" as const;
+const SELECT_MUSIC = "musicPlayer/SELECT_MUSIC" as const;
 
 export const playMusic = () => ({
   type: PLAY_MUSIC,
@@ -75,9 +76,12 @@ export const playNextMusic = (isEnded: boolean = false) => ({
 export const playPrevMusic = () => ({
   type: PLAY_PREV_MUSIC,
 });
-
 export const changeMode = () => ({
   type: CHANGE_MODE,
+});
+export const selectMusic = (index: number) => ({
+  type: SELECT_MUSIC,
+  payload: { index },
 });
 
 export type MusicPlayerAction =
@@ -85,7 +89,8 @@ export type MusicPlayerAction =
   | ReturnType<typeof pauseMusic>
   | ReturnType<typeof playNextMusic>
   | ReturnType<typeof playPrevMusic>
-  | ReturnType<typeof changeMode>;
+  | ReturnType<typeof changeMode>
+  | ReturnType<typeof selectMusic>;
 
 const getRandomModeIdx = (crtIdx: number): number => {
   const randomIdx = Math.trunc(Math.random() * playList.length);
@@ -165,6 +170,12 @@ export default function reducer(
       return {
         ...state,
         mode: MODE[nextModeIdx] as ModeType,
+      };
+    }
+    case SELECT_MUSIC: {
+      return {
+        ...state,
+        currentIndex: action.payload.index,
       };
     }
     default:

@@ -2,6 +2,7 @@ import React, {
   Dispatch,
   ForwardedRef,
   forwardRef,
+  SetStateAction,
   useCallback,
   useImperativeHandle,
   useRef,
@@ -26,6 +27,7 @@ type MusicToolbarProps = {
   onPause: () => void;
   onResetPlay: () => void;
   onChangeVolume: (volume: number) => void;
+  setShowPlayList: Dispatch<SetStateAction<boolean>>;
   state: MusicPlayerState;
   dispatch: Dispatch<MusicPlayerAction>;
 };
@@ -35,6 +37,7 @@ const MusicToolbar = (
     onPause,
     onResetPlay,
     onChangeVolume,
+    setShowPlayList,
     state,
     dispatch,
   }: MusicToolbarProps,
@@ -97,9 +100,13 @@ const MusicToolbar = (
     dispatch(changeMode());
   }, [dispatch]);
 
+  const onClickPlayList = useCallback(() => {
+    setShowPlayList(true);
+  }, [setShowPlayList]);
+
   return (
     <div className="music-tool">
-      <QueueMusicIcon />
+      <QueueMusicIcon onClick={onClickPlayList} />
       <PlayMode mode={state.mode} onClick={onChangeMode} />
       <SkipPreviousIcon onClick={onClickPrev} />
       {playing ? (
