@@ -20,9 +20,9 @@
     "isolatedModules": true,
 //    "noEmit": true,
     "jsx": "react-jsx",
-    "declaration": true
+    "declaration": true,
   },
   "include": [
-    "src"
+    "src/lib/*"
   ]
 }
