@@ -34,14 +34,39 @@ class TodoList {
 
   onClickTodoList(e: Event) {
     const buttonEl = (e.target as HTMLElement).closest("button");
-    console.log(buttonEl);
+
     if (!buttonEl) return;
+
+    const todoEl: HTMLFormElement = buttonEl.closest(".todo");
+
     if (buttonEl.matches(".delete-btn")) {
-      this.deleteTodo(buttonEl);
+      this.deleteTodo(todoEl);
+    } else if (buttonEl.matches(".edit-btn")) {
+      this.editTodo(todoEl);
+    } else if (buttonEl.matches(".save-btn")) {
+      todoEl.addEventListener("submit", this.saveTodo.bind(this));
+    } else if (buttonEl.matches(".complete-btn")) {
+      this.completeTodo(todoEl);
     }
   }
-  deleteTodo(buttonEl: HTMLButtonElement) {
-    const todoEl = buttonEl.closest(".todo");
+
+  completeTodo(todoEl: HTMLFormElement) {
+    todoEl.classList.toggle("done");
+  }
+  saveTodo(e: SubmitEvent) {
+    e.preventDefault();
+    const target = e.currentTarget as HTMLFormElement;
+    const inputEl = target.querySelector("input");
+    inputEl.readOnly = true;
+    target.classList.remove("edit");
+  }
+  editTodo(todoEl: HTMLFormElement) {
+    todoEl.classList.add("edit");
+    const inputEl = todoEl.querySelector("input");
+    inputEl.readOnly = false;
+    inputEl.focus();
+  }
+  deleteTodo(todoEl: HTMLFormElement) {
     todoEl.classList.add("delete");
     todoEl.addEventListener("transitionend", () => {
       todoEl.remove();
