@@ -1,7 +1,14 @@
+import Storage from "./Storage";
+
 interface FormElements extends HTMLFormElement {
   content: HTMLInputElement;
 }
 export type Filter = "ALL" | "TODO" | "DONE";
+export type ToDo = {
+  id: number;
+  content: string;
+  status: Filter;
+};
 
 export default class TodoList {
   wrapperEl: HTMLDivElement;
@@ -12,10 +19,46 @@ export default class TodoList {
   todolistEl: HTMLDivElement;
   radioAreaEl: HTMLDivElement;
   filterRadioEls: NodeListOf<HTMLInputElement>;
+  storage: Storage<ToDo[]>;
 
-  constructor() {
+  constructor(storage: Storage<ToDo[]>) {
     this.setElements();
     this.setEvents();
+    this.storage = storage;
+    this.loadTodo();
+  }
+
+  loadTodo() {
+    this.storage
+      .getData()
+      .reverse()
+      .forEach((todo) => {
+        this.createTodoBox(todo.id, todo.content, todo.status);
+      });
+  }
+
+  addStorage(todo: ToDo) {
+    this.storage.setData([todo, ...(this.storage.getData() || [])]);
+  }
+
+  editStorage(
+    id: number,
+    { content, status }: { content?: string; status?: Filter },
+  ) {
+    const todos = this.storage.getData();
+    const todoIdx = this.storage.getData().findIndex((data) => data.id === id);
+    const newTodo =
+      (content && { ...todos[todoIdx], content }) ||
+      (status && { ...todos[todoIdx], status });
+    todos.splice(todoIdx, 1, newTodo);
+    this.storage.setData(todos);
+  }
+
+  deleteStorage(id: number) {
+    const todos = this.storage.getData();
+    const todoIdx = this.storage.getData().findIndex((data) => data.id === id);
+    todos.splice(todoIdx, 1);
+    this.storage.setData(todos);
   }
 
   setElements() {
@@ -82,6 +125,9 @@ export default class TodoList {
 
   completeTodo(todoEl: HTMLFormElement) {
     todoEl.classList.toggle("done");
+    this.editStorage(+todoEl.dataset.id, {
+      status: todoEl.classList.contains("done") ? "DONE" : "TODO",
+    });
   }
   saveTodo(e: SubmitEvent) {
     e.preventDefault();
@@ -89,6 +135,7 @@ export default class TodoList {
     const inputEl = target.querySelector("input");
     inputEl.readOnly = true;
     target.classList.remove("edit");
+    this.editStorage(+target.dataset.id, { content: inputEl.value });
   }
   editTodo(todoEl: HTMLFormElement) {
     todoEl.classList.add("edit");
@@ -101,6 +148,7 @@ export default class TodoList {
     todoEl.addEventListener("transitionend", () => {
       todoEl.remove();
     });
+    this.deleteStorage(+todoEl.dataset.id);
   }
   onAddTodo(e: SubmitEvent) {
     e.preventDefault();
@@ -109,16 +157,20 @@ export default class TodoList {
       alert("내용을 입력해주세요.");
       return;
     }
-    this.createTodoBox(content);
+    const id = Date.now();
+    this.createTodoBox(id, content);
+    this.addStorage({ id, content, status: "TODO" });
     this.inputEl.value = "";
   }
 
-  createTodoBox(content: string) {
+  createTodoBox(id: number, content: string, status?: Filter) {
     const fragment = new DocumentFragment();
     const wrapperEl = document.createElement("form");
     const inputEl = document.createElement("input");
 
     wrapperEl.classList.add("todo");
+    status === "DONE" && wrapperEl.classList.add("done");
+    wrapperEl.dataset.id = id.toString();
     inputEl.classList.add("todo-item");
     inputEl.value = content;
     inputEl.readOnly = true;

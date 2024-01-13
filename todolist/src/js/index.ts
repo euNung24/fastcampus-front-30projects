@@ -1,10 +1,12 @@
 import "@fortawesome/fontawesome-free/js/all.min.js";
 import "../scss/style.scss";
-import TodoList, { Filter } from "./TodoList";
+import TodoList, { Filter, ToDo } from "./TodoList";
 import Router from "./Router";
+import Storage from "./Storage";
 
 window.addEventListener("DOMContentLoaded", () => {
-  const todolist = new TodoList();
+  const todoStorage = new Storage("todos", [] as ToDo[]);
+  const todolist = new TodoList(todoStorage);
   const route = new Router();
 
   const setFilterPage = (status: Filter) => () => {
