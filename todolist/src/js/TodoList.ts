@@ -129,7 +129,10 @@ export default class TodoList {
     wrapperEl.appendChild(this.createBtnEl("delete", ["fas", "fa-trash"]));
     wrapperEl.appendChild(this.createBtnEl("save", ["fas", "fa-save"]));
     fragment.appendChild(wrapperEl);
-    this.todolistEl.appendChild(fragment);
+    this.todolistEl.insertAdjacentElement(
+      "afterbegin",
+      fragment.firstElementChild,
+    );
   }
 
   createBtnEl(type: "delete" | "edit" | "save" | "complete", iClass: string[]) {
