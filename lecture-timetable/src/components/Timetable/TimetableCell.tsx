@@ -11,7 +11,7 @@ interface TimetableCellProps extends TimetableRowProps {
 const TimetableCell = ({ day, ...props }: TimetableCellProps) => {
   const { time } = props;
   const [timetable, setTimetable] = useRecoilState(timetableState);
-  const lecture = timetable[day.toLowerCase()].find(
+  const lecture = timetable[day.toLowerCase()]?.find(
     (lecture) => lecture.start <= time && lecture.end > time,
   );
 
@@ -22,7 +22,7 @@ const TimetableCell = ({ day, ...props }: TimetableCellProps) => {
           <TableCell
             align="center"
             sx={{ backgroundColor: lecture.color }}
-            rowSpan={lecture.end - lecture.start + 1}
+            rowSpan={lecture.end - lecture.start}
           >
             {lecture.name}
           </TableCell>
