@@ -1,10 +1,11 @@
-import { atom } from "recoil";
+import { atom, AtomEffect } from "recoil";
 
 type LectureOption = {
   key: string;
   default: {
     [day: string]: Lecture[];
   };
+  effects: any;
 };
 
 export type Lecture = {
@@ -15,6 +16,21 @@ export type Lecture = {
   color: string;
 };
 
+const localStorageEffect =
+  <T>(key: string): AtomEffect<T> =>
+  ({ setSelf, onSet }) => {
+    const savedValue = localStorage.getItem(key);
+    if (savedValue != null) {
+      setSelf(JSON.parse(savedValue));
+    }
+
+    onSet((newValue, _, isReset) => {
+      isReset
+        ? localStorage.removeItem(key)
+        : localStorage.setItem(key, JSON.stringify(newValue));
+    });
+  };
+
 const lectureOptions: LectureOption = {
   key: "timetableState",
   default: {
@@ -24,6 +40,7 @@ const lectureOptions: LectureOption = {
     thu: [] as Lecture[],
     fri: [] as Lecture[],
   },
+  effects: [localStorageEffect<Pick<LectureOption, "default">>("timetable")],
 };
 
 export const initLectureFormState = {
