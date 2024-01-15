@@ -1,10 +1,11 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { TableCell } from "@mui/material";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { lectureFormState, timetableState } from "../../store";
 import { TimetableRowProps } from "./TimetableRow";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import ConfirmModal from "../ConfirmModal/ConfirmModal";
 
 interface TimetableCellProps extends TimetableRowProps {
   day: string;
@@ -12,7 +13,8 @@ interface TimetableCellProps extends TimetableRowProps {
 
 const TimetableCell = ({ day, ...props }: TimetableCellProps) => {
   const { time, handleShowModal } = props;
-  const timetable = useRecoilValue(timetableState);
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [timetable, setTimetable] = useRecoilState(timetableState);
   const setLectureForm = useSetRecoilState(lectureFormState);
   const lecture = timetable[day.toLowerCase()]?.find(
     (lecture) => lecture.start <= time && lecture.end > time,
@@ -25,7 +27,25 @@ const TimetableCell = ({ day, ...props }: TimetableCellProps) => {
       editId: lecture.id,
       editDay: day.toLowerCase() as Lowercase<string>,
     });
-  }, [lecture, setLectureForm]);
+  }, [lecture, setLectureForm, handleShowModal, day]);
+
+  const onOpenModal = useCallback(() => {
+    setIsOpenModal(true);
+  }, [setIsOpenModal]);
+
+  const handleCloseModal = useCallback(() => {
+    setIsOpenModal(false);
+  }, [setIsOpenModal]);
+
+  const handleDeleteLecture = useCallback(() => {
+    setTimetable((prev) => ({
+      ...prev,
+      [day.toLowerCase()]: prev[day.toLowerCase()].filter(
+        (item) => item.id !== lecture?.id,
+      ),
+    }));
+    handleCloseModal();
+  }, [setTimetable, day, lecture?.id, handleCloseModal]);
 
   return (
     <>
@@ -52,13 +72,18 @@ const TimetableCell = ({ day, ...props }: TimetableCellProps) => {
             {lecture.name}
             <div className="lectureBtn">
               <EditIcon onClick={onClickEdit} />
-              <DeleteIcon />
+              <DeleteIcon onClick={onOpenModal} />
             </div>
           </TableCell>
         ) : null
       ) : (
         <TableCell align="center" />
       )}
+      <ConfirmModal
+        isOpen={isOpenModal}
+        handleCloseModal={handleCloseModal}
+        handleDeleteLecture={handleDeleteLecture}
+      />
     </>
   );
 };

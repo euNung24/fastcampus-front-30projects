@@ -58,7 +58,6 @@ const InputModal = ({ isOpen, handleCloseModal }: InputModalProps) => {
   const {
     control,
     reset,
-    getValues,
     handleSubmit,
     formState: { errors },
   } = useForm({
