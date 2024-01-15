@@ -65,10 +65,10 @@ const Timetable = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {timeList.map((time, i) => (
+            {timeList.map((time) => (
               <TableRow key={time}>
                 <TableCell align="center">{time}:00</TableCell>
-                <TimetableRow time={time} />
+                <TimetableRow time={time} handleShowModal={onClickAddBtn} />
               </TableRow>
             ))}
           </TableBody>

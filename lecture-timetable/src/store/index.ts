@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 
-type Option = {
+type LectureOption = {
   key: string;
   default: {
     [day: string]: Lecture[];
@@ -8,14 +8,14 @@ type Option = {
 };
 
 export type Lecture = {
-  id: number;
+  id: string;
   name: string;
   start: number;
   end: number;
   color: string;
 };
 
-const options: Option = {
+const lectureOptions: LectureOption = {
   key: "timetableState",
   default: {
     mon: [] as Lecture[],
@@ -25,4 +25,16 @@ const options: Option = {
     fri: [] as Lecture[],
   },
 };
-export const timetableState = atom(options);
+
+export const initLectureFormState = {
+  editDay: "" as Lowercase<string>,
+  editId: "",
+};
+
+const lectureFormOptions = {
+  key: "lectureFormState",
+  default: initLectureFormState,
+};
+
+export const timetableState = atom(lectureOptions);
+export const lectureFormState = atom(lectureFormOptions);

@@ -4,6 +4,7 @@ import TimetableCell from "./TimetableCell";
 
 export interface TimetableRowProps {
   time: number;
+  handleShowModal: () => void;
 }
 const TimetableRow = (props: TimetableRowProps) => {
   // console.log(props);
