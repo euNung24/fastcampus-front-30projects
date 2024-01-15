@@ -51,7 +51,7 @@ const Timetable = () => {
           {timeList.map((time, i) => (
             <TableRow key={time}>
               <TableCell align="center">{time}:00</TableCell>
-              <TimetableRow />
+              <TimetableRow time={time} />
             </TableRow>
           ))}
         </TableBody>

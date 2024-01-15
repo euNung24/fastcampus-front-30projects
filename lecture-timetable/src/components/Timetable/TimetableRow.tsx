@@ -1,14 +1,16 @@
 import React from "react";
-import { TableCell, TableRow } from "@mui/material";
 import { dayList } from "../../variables";
+import TimetableCell from "./TimetableCell";
 
-type TimetableRowProps = {};
-
-const TimetableRow = ({}: TimetableRowProps) => {
+export interface TimetableRowProps {
+  time: number;
+}
+const TimetableRow = (props: TimetableRowProps) => {
+  // console.log(props);
   return (
     <>
       {dayList.map((day) => (
-        <TableCell key={day} align="center"></TableCell>
+        <TimetableCell key={day} day={day} {...props} />
       ))}
     </>
   );
