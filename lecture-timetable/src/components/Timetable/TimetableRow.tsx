@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { dayList } from "../../variables";
 import TimetableCell from "./TimetableCell";
 
@@ -7,7 +7,6 @@ export interface TimetableRowProps {
   handleShowModal: () => void;
 }
 const TimetableRow = (props: TimetableRowProps) => {
-  // console.log(props);
   return (
     <>
       {dayList.map((day) => (
@@ -17,4 +16,4 @@ const TimetableRow = (props: TimetableRowProps) => {
   );
 };
 
-export default TimetableRow;
+export default memo(TimetableRow);
