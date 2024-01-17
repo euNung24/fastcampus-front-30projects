@@ -49,12 +49,14 @@ interface CarouselProps {
   children: ReactNode | ReactNode[];
   autoLoop?: boolean;
   loopTime?: number;
+  transTime?: number;
   direction?: "row" | "column";
 }
 const Carousel = ({
   children,
   autoLoop = false,
-  loopTime = 500,
+  loopTime = 1000,
+  transTime = 500,
   direction = "row",
 }: CarouselProps) => {
   const [idx, setIdx] = useState(0);
@@ -98,7 +100,7 @@ const Carousel = ({
         <CarouselItem
           key={index}
           idx={idx}
-          transTime={loopTime}
+          transTime={transTime}
           direction={direction}
         >
           {child}
