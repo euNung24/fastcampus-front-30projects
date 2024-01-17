@@ -2,19 +2,36 @@ import React, { ReactNode, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import CarouselItem from "./CarouselItem";
 
-const CarouselWrapper = styled.div`
+const CarouselWrapper = styled.div<{
+  direction: "row" | "column";
+}>`
   display: flex;
+  flex-direction: ${({ direction }) => direction};
   width: 500px;
   height: 500px;
   overflow: hidden;
   position: relative;
 `;
 
-const CarouselButton = styled.button<{ position: "left" | "right" }>`
+const CarouselButton = styled.button<{
+  position: "left" | "right";
+  direction: "row" | "column";
+}>`
   position: absolute;
-  top: 50%;
-  ${({ position }) => `${position}: 0`};
-  transform: translateY(-50%);
+  ${({ direction, position }) =>
+    direction === "row"
+      ? "top: 50%"
+      : position === "left"
+        ? "top: 0"
+        : "bottom: 0"};
+  ${({ position, direction }) =>
+    direction === "row" ? `${position}: 0` : `${position}: 50%`};
+  transform: ${({ direction, position }) =>
+    direction === "row"
+      ? "translateY(-50%)"
+      : position === "left"
+        ? "translateX(-50%) rotate(90deg)"
+        : "translateX(50%)  rotate(90deg)"};
   width: 50px;
   height: 50px;
   display: flex;
@@ -32,11 +49,13 @@ interface CarouselProps {
   children: ReactNode | ReactNode[];
   autoLoop?: boolean;
   loopTime?: number;
+  direction?: "row" | "column";
 }
 const Carousel = ({
   children,
   autoLoop = false,
   loopTime = 500,
+  direction = "row",
 }: CarouselProps) => {
   const [idx, setIdx] = useState(0);
   const carouselItems = Array.isArray(children) ? children : [children];
@@ -67,16 +86,29 @@ const Carousel = ({
   }, [autoLoop, loopTime, carouselItems.length]);
 
   return (
-    <CarouselWrapper>
-      <CarouselButton position="left" onClick={onClickLeft}>
+    <CarouselWrapper direction={direction}>
+      <CarouselButton
+        position="left"
+        direction={direction}
+        onClick={onClickLeft}
+      >
         {"<"}
       </CarouselButton>
       {carouselItems.map((child, index) => (
-        <CarouselItem key={index} idx={idx} transTime={loopTime}>
+        <CarouselItem
+          key={index}
+          idx={idx}
+          transTime={loopTime}
+          direction={direction}
+        >
           {child}
         </CarouselItem>
       ))}
-      <CarouselButton position="right" onClick={onClickRight}>
+      <CarouselButton
+        position="right"
+        direction={direction}
+        onClick={onClickRight}
+      >
         {">"}
       </CarouselButton>
     </CarouselWrapper>
