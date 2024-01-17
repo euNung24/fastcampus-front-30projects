@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import CarouselItem from "./CarouselItem";
 
@@ -30,8 +30,14 @@ const CarouselButton = styled.button<{ position: "left" | "right" }>`
 
 interface CarouselProps {
   children: ReactNode | ReactNode[];
+  autoLoop?: boolean;
+  loopTime?: number;
 }
-const Carousel = ({ children }: CarouselProps) => {
+const Carousel = ({
+  children,
+  autoLoop = false,
+  loopTime = 500,
+}: CarouselProps) => {
   const [idx, setIdx] = useState(0);
   const carouselItems = Array.isArray(children) ? children : [children];
   const onClickLeft = () => {
@@ -48,13 +54,25 @@ const Carousel = ({ children }: CarouselProps) => {
       setIdx(0);
     }
   };
+
+  useEffect(() => {
+    if (autoLoop) {
+      const interval = setInterval(() => {
+        setIdx((prev) => (prev < carouselItems.length - 1 ? prev + 1 : 0));
+      }, loopTime);
+      return () => {
+        clearInterval(interval);
+      };
+    }
+  }, [autoLoop, loopTime, carouselItems.length]);
+
   return (
     <CarouselWrapper>
       <CarouselButton position="left" onClick={onClickLeft}>
         {"<"}
       </CarouselButton>
       {carouselItems.map((child, index) => (
-        <CarouselItem key={index} idx={idx}>
+        <CarouselItem key={index} idx={idx} transTime={loopTime}>
           {child}
         </CarouselItem>
       ))}
